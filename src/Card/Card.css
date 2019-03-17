@@ -1,0 +1,25 @@
+.Card {
+    width: 80%;
+    border: 1px solid #eee;
+    margin: 10px;   
+    box-shadow: 2px 2px 2px #ccc;
+    padding: 16px;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    float: left;
+}
+
+.Card input {
+    width: 100%;
+    border-top: 0px;
+    border-left: 0px
+}
+
+.Card label {
+    font-size: 12px;
+}
+
+.Card button {
+    cursor: pointer;
+}

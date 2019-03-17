@@ -1,0 +1,14 @@
+.Main-container {
+    width: 100%;
+    display: block;
+}
+
+.Buttons-container {
+    width: 100%;
+    float: left;
+}
+
+.Cards-container {
+    width: 50%;
+    float: left;
+}
