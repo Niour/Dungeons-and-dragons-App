@@ -97,7 +97,7 @@ class App extends Component {
             onHitpointsChange={(event) => this.updateHitpoints(event, element.id)}
             onRemove={() => this.removeElement(element.id)}
           />
-          )}
+          )} This is a test 
           </div>
           <Stats
          //   name={this.state.}
