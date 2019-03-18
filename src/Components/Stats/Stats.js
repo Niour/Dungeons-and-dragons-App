@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 
-import './Stats.css';
+import classes from "./Stats.module.css";
 
 const stats = (props) => {
     return (
         <div 
-        className={"Stats"}
-   //     name={props.name}       <h2>{name}</h2>
+        className={classes.Stats}
         >
-    
+                STATS
             
         </div>
     )

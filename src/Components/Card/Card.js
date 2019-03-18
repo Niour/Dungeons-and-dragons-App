@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import './Card.css';
+import classes from "./Card.module.css";
 import {Input} from './Input.js';
 
 const card = (props) => {
     return (
-        <div className="Card">
+        <div className={classes.Card}>
 
             <Input
             label="Name: "
@@ -29,10 +29,10 @@ const card = (props) => {
             <button onClick={props.onRemove}>
                 X
             </button>
-            <button>
+            <button onClick={props.clickBuffs}>
                 Buffs
             </button>
-            <button>
+            <button onClick={props.clickStats}>
                 Stats
             </button>
         </div>

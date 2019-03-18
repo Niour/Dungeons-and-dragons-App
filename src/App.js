@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import './App.css';
-import Card from './Card/Card.js';
-import {randomId} from './utils.js';
-import {initialState} from './constants.js';
-import Stats from './Stats/Stats.js'; 
+import Card from './Components/Card/Card';
+import {randomId} from './utils';
+import {initialState} from './constants';
+import Stats from './Components/Stats/Stats';
+import Aux from './hoc/Auxialiary';
+
+
+
 
 class App extends Component {
   state = {
     elements: initialState,
   };
+  
 
   updateName = (event, id) => {
     const elementIndex = this.state.elements.findIndex(el => {
@@ -63,6 +68,13 @@ class App extends Component {
         name: `Player ${elements.length +1}`,
         initiative: 10,
         hitpoints: 100,
+        strenght: 10,
+        dexterity: 10,
+        constitution: 10,
+        intelligence: 10,
+        wisdom: 10,
+        charisma: 10,
+        buffs: [],
     };
     this.setState({
     elements: elements.sort((l, r) => r.initiative - l.initiative)
@@ -75,14 +87,29 @@ class App extends Component {
     this.setState ({elements});
   }
 
+  showBuffs = (id) => {
+    const elementIndex = this.state.elements.findIndex(el => {
+      return el.id === id
+    });
+    const element = {...this.state.elements[elementIndex]};
+    console.log(element.buffs);
+  }
 
-  
+  activePlayerProp = (id) => {
+    const elementIndex = this.state.elements.findIndex(el => {
+      return el.id === id
+    });
+    const element = {...this.state.elements[elementIndex]};
+    console.log(element);
+  }
+
   render() {
     return (
-      <div className={"Main-container"}>
+      <Aux className={"Main-container"}>
         <div className={"Buttons-container"}>
         <button onClick={this.addCard}>Add Character</button>
         <button>Import A Character</button>
+        <button>Undo</button>
         </div>
         <div className={"Cards-container"}>
           {this.state.elements.map(element => 
@@ -96,18 +123,19 @@ class App extends Component {
             onInitiativeChange={(event) => this.updateInitiative(event, element.id)}
             onHitpointsChange={(event) => this.updateHitpoints(event, element.id)}
             onRemove={() => this.removeElement(element.id)}
+            clickBuffs={() => this.showBuffs(element.id)}
+            clickStats={() => this.activePlayerProp(element.id)}
           />
-          )} This is a test 
+          )} 
           </div>
-          <Stats
-         //   name={this.state.}
-          >
-
+          <Stats>
+            
           </Stats>
           
-      </div>
+      </Aux>
     );
   }
 }
+
 
 export default App;
