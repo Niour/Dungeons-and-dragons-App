@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+
 import './App.css';
 import Card from './Components/Card/Card';
 import {randomId} from './utils';
 import {initialState} from './constants';
-import Stats from './Components/Stats/Stats';
+import Stats from './Containers/Stats/Stats';
 import Aux from './hoc/Auxialiary';
+import Layout from './Containers/Layout/Layout';
 
 
 
@@ -105,8 +107,8 @@ class App extends Component {
 
   render() {
     return (
-      <Aux>
-        <div className={"Main-container"}>
+      
+        <Layout>
           <div className={"Buttons-container"}>
           <button onClick={this.addCard}>Add Character</button>
           <button>Import A Character</button>
@@ -130,8 +132,8 @@ class App extends Component {
             )} 
           </div>
           <Stats />
-        </div>    
-      </Aux>
+        </Layout>    
+      
     );
   }
 }
