@@ -105,33 +105,32 @@ class App extends Component {
 
   render() {
     return (
-      <Aux className={"Main-container"}>
-        <div className={"Buttons-container"}>
-        <button onClick={this.addCard}>Add Character</button>
-        <button>Import A Character</button>
-        <button>Undo</button>
-        </div>
-        <div className={"Cards-container"}>
-          {this.state.elements.map(element => 
-          <Card
-            name={element.name}
-            initiative={element.initiative}
-            hitpoints={element.hitpoints}
-            key={element.id}
-            id={element.id}
-            onNameChange={(event) => this.updateName(event, element.id)}
-            onInitiativeChange={(event) => this.updateInitiative(event, element.id)}
-            onHitpointsChange={(event) => this.updateHitpoints(event, element.id)}
-            onRemove={() => this.removeElement(element.id)}
-            clickBuffs={() => this.showBuffs(element.id)}
-            clickStats={() => this.activePlayerProp(element.id)}
-          />
-          )} 
+      <Aux>
+        <div className={"Main-container"}>
+          <div className={"Buttons-container"}>
+          <button onClick={this.addCard}>Add Character</button>
+          <button>Import A Character</button>
+          <button>Undo</button>
           </div>
-          <Stats>
-            
-          </Stats>
-          
+          <div className={"Cards-container"}>
+            {this.state.elements.map(element => 
+            <Card
+              name={element.name}
+              initiative={element.initiative}
+              hitpoints={element.hitpoints}
+              key={element.id}
+              id={element.id}
+              onNameChange={(event) => this.updateName(event, element.id)}
+              onInitiativeChange={(event) => this.updateInitiative(event, element.id)}
+              onHitpointsChange={(event) => this.updateHitpoints(event, element.id)}
+              onRemove={() => this.removeElement(element.id)}
+              clickBuffs={() => this.showBuffs(element.id)}
+              clickStats={() => this.activePlayerProp(element.id)}
+            />
+            )} 
+          </div>
+          <Stats />
+        </div>    
       </Aux>
     );
   }
