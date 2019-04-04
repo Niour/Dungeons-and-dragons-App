@@ -8,8 +8,19 @@ import Stats from './Components/Stats/Stats';
 import Aux from './hoc/Auxialiary';
 import Layout from './Containers/Layout/Layout';
 
-
-
+let active = {id: randomId(),
+name: "No active Player",
+initiative: 20,
+hitpoints: 100,
+active: true,
+strenght: 10,
+dexterity: 10,
+constitution: 10,
+intelligence: 10,
+wisdom: 10,
+charisma: 10,
+buffs: ["mage armor"]
+};
 
 class App extends Component {
   state = {
@@ -102,7 +113,8 @@ class App extends Component {
       return el.id === id
     });
     const element = {...this.state.elements[elementIndex]};
-    console.log(element);
+    active = element;
+    console.log(active);       // this has to be fail practice
   }
 
   render() {
@@ -132,7 +144,7 @@ class App extends Component {
             )} 
           </div>
           <Stats 
-
+              activePlayer= {active}
           />
         </Layout>    
       
