@@ -1,15 +1,58 @@
 import React, { Component } from 'react';
+
 import './App.css';
-import Card from './Card/Card.js';
-import {randomId} from './utils.js';
-import {initialState} from './constants.js';
-import Stats from './Stats/Stats.js'; 
+import Card from './Components/Card/Card';
+import {randomId} from './utils';
+import {initialState} from './constants';
+import Stats from './Components/Stats/Stats';
+import Aux from './hoc/Auxialiary';
+import Layout from './Containers/Layout/Layout';
+
+let activePlayer = {
+  id: randomId(),
+  name: "Plz select a player",
+  initiative: 20,
+  hitpoints: 100,
+  active: true,
+  strenght: 10,
+  dexterity: 10,
+  constitution: 10,
+  intelligence: 10,
+  wisdom: 10,
+  charisma: 10,
+  buffs: ["mage armor"],
+  basestrenght: 10,
+  baseDexterity: 12,
+  baseConstitution: 13,
+  baseIntelligence: 11,
+  baseWisdom: 10,
+  baseCharisma: 10,
+};
 
 class App extends Component {
   state = {
     elements: initialState,
   };
 
+  updateStats = () => {
+    const elementsId = [];
+    this.state.elements.findIndex(el => {
+      return elementsId.push(el.id);
+    });
+    const elements = [...this.state.elements];
+    for (let el in elementsId) {
+      for (let i in elements[el].buffs) {
+        const elementIndex = i.findIndex (j => {
+          
+        })
+      }
+      elements[el].active = false
+    };
+    this.setState( {
+      elements: elements
+    })
+  }
+  
   updateName = (event, id) => {
     const elementIndex = this.state.elements.findIndex(el => {
       return el.id === id
@@ -63,6 +106,13 @@ class App extends Component {
         name: `Player ${elements.length +1}`,
         initiative: 10,
         hitpoints: 100,
+        strenght: 10,
+        dexterity: 10,
+        constitution: 10,
+        intelligence: 10,
+        wisdom: 10,
+        charisma: 10,
+        buffs: [],
     };
     this.setState({
     elements: elements.sort((l, r) => r.initiative - l.initiative)
@@ -75,39 +125,77 @@ class App extends Component {
     this.setState ({elements});
   }
 
+  showBuffs = (id) => {
+    const elementIndex = this.state.elements.findIndex(el => {
+      return el.id === id
+    });
+    const element = {...this.state.elements[elementIndex]};
+    console.log(element.buffs);
+  }
 
-  
+  activePlayerProp = (id) => {
+    this.deactivateAllPlayers();
+    const elementIndex = this.state.elements.findIndex(el => {
+      return el.id === id
+    });
+    const element = {...this.state.elements[elementIndex]};
+    element.active = true;      // this has to be fail practice
+    const elements = [...this.state.elements];
+    elements[elementIndex] = element;
+    activePlayer = element;
+    this.setState({
+      elements: elements
+    })
+  }
+
+  deactivateAllPlayers = () => {
+    const elementsId = [];
+    this.state.elements.findIndex(el => {
+      return elementsId.push(el.id);
+    });
+    const elements = [...this.state.elements];
+    for (let el in elementsId) {
+      elements[el].active = false
+    };
+    this.setState( {
+      elements: elements
+    })
+  }
+
   render() {
     return (
-      <div className={"Main-container"}>
-        <div className={"Buttons-container"}>
-        <button onClick={this.addCard}>Add Character</button>
-        <button>Import A Character</button>
-        </div>
-        <div className={"Cards-container"}>
-          {this.state.elements.map(element => 
-          <Card
-            name={element.name}
-            initiative={element.initiative}
-            hitpoints={element.hitpoints}
-            key={element.id}
-            id={element.id}
-            onNameChange={(event) => this.updateName(event, element.id)}
-            onInitiativeChange={(event) => this.updateInitiative(event, element.id)}
-            onHitpointsChange={(event) => this.updateHitpoints(event, element.id)}
-            onRemove={() => this.removeElement(element.id)}
-          />
-          )} This is a test 
-          </div>
-          <Stats
-         //   name={this.state.}
-          >
 
-          </Stats>
-          
-      </div>
+        <Layout>
+          <div className={"Buttons-container"}>
+          <button onClick={this.addCard}>Add Character</button>
+          <button>Import A Character</button>
+          <button>Undo</button>
+          </div>
+          <div className={"Cards-container"}>
+            {this.state.elements.map(element => 
+            <Card
+              name={element.name}
+              initiative={element.initiative}
+              hitpoints={element.hitpoints}
+              key={element.id}
+              id={element.id}
+              onNameChange={(event) => this.updateName(event, element.id)}
+              onInitiativeChange={(event) => this.updateInitiative(event, element.id)}
+              onHitpointsChange={(event) => this.updateHitpoints(event, element.id)}
+              onRemove={() => this.removeElement(element.id)}
+              clickBuffs={() => this.deactivateAllPlayers()}
+              clickStats={() => this.activePlayerProp(element.id)}
+            />
+            )} 
+          </div>
+          <Stats 
+              activePlayer= {activePlayer}
+          />
+        </Layout>    
+      
     );
   }
 }
+
 
 export default App;
