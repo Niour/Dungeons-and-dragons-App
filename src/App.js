@@ -8,20 +8,6 @@ import Stats from './Components/Stats/Stats';
 import Aux from './hoc/Auxialiary';
 import Layout from './Containers/Layout/Layout';
 
-let active = {id: randomId(),
-name: "No active Player",
-initiative: 20,
-hitpoints: 100,
-active: true,
-strenght: 10,
-dexterity: 10,
-constitution: 10,
-intelligence: 10,
-wisdom: 10,
-charisma: 10,
-buffs: ["mage armor"]
-};
-
 class App extends Component {
   state = {
     elements: initialState,
@@ -109,12 +95,35 @@ class App extends Component {
   }
 
   activePlayerProp = (id) => {
+    this.deactivateAllPlayers();
     const elementIndex = this.state.elements.findIndex(el => {
       return el.id === id
     });
+    console.log(elementIndex);
     const element = {...this.state.elements[elementIndex]};
-    active = element;
-    console.log(active);       // this has to be fail practice
+    element.active = true;      // this has to be fail practice
+    const elements = [...this.state.elements];
+    console.log(element);
+    elements[elementIndex] = element;
+    console.log(elements);
+    this.setState({
+      elements: elements
+    })
+    console.log(this.state.elements);
+  }
+
+  deactivateAllPlayers = () => {
+    const elementsId = [];
+    this.state.elements.findIndex(el => {
+      return elementsId.push(el.id);
+    });
+    const elements = [...this.state.elements];
+    for (let el in elementsId) {
+      elements[el].active = false
+    };
+    this.setState( {
+      elements: elements
+    })
   }
 
   render() {
@@ -138,13 +147,13 @@ class App extends Component {
               onInitiativeChange={(event) => this.updateInitiative(event, element.id)}
               onHitpointsChange={(event) => this.updateHitpoints(event, element.id)}
               onRemove={() => this.removeElement(element.id)}
-              clickBuffs={() => this.showBuffs(element.id)}
+              clickBuffs={() => this.deactivateAllPlayers()}
               clickStats={() => this.activePlayerProp(element.id)}
             />
             )} 
           </div>
           <Stats 
-              activePlayer= {active}
+              activePlayer= {{name: "test"}}
           />
         </Layout>    
       
