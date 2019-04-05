@@ -21,14 +21,38 @@ let activePlayer = {
   wisdom: 10,
   charisma: 10,
   buffs: ["mage armor"],
+  basestrenght: 10,
+  baseDexterity: 12,
+  baseConstitution: 13,
+  baseIntelligence: 11,
+  baseWisdom: 10,
+  baseCharisma: 10,
 };
 
 class App extends Component {
   state = {
     elements: initialState,
   };
-  
 
+  updateStats = () => {
+    const elementsId = [];
+    this.state.elements.findIndex(el => {
+      return elementsId.push(el.id);
+    });
+    const elements = [...this.state.elements];
+    for (let el in elementsId) {
+      for (let i in elements[el].buffs) {
+        const elementIndex = i.findIndex (j => {
+          
+        })
+      }
+      elements[el].active = false
+    };
+    this.setState( {
+      elements: elements
+    })
+  }
+  
   updateName = (event, id) => {
     const elementIndex = this.state.elements.findIndex(el => {
       return el.id === id
