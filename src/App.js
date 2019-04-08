@@ -5,8 +5,8 @@ import Card from './Components/Card/Card';
 import {randomId} from './utils';
 import {initialState} from './constants';
 import Stats from './Components/Stats/Stats';
-import Aux from './hoc/Auxialiary';
 import Layout from './Containers/Layout/Layout';
+import Buffs from './Components/Buffs/Buffs';
 
 let activePlayer = {
   id: randomId(),
@@ -41,11 +41,6 @@ class App extends Component {
     });
     const elements = [...this.state.elements];
     for (let el in elementsId) {
-      for (let i in elements[el].buffs) {
-        const elementIndex = i.findIndex (j => {
-          
-        })
-      }
       elements[el].active = false
     };
     this.setState( {
@@ -125,6 +120,10 @@ class App extends Component {
     this.setState ({elements});
   }
 
+  removeElementBuff = (id) => {
+    console.log();
+  }
+
   showBuffs = (id) => {
     const elementIndex = this.state.elements.findIndex(el => {
       return el.id === id
@@ -191,11 +190,14 @@ class App extends Component {
           <Stats 
               activePlayer= {activePlayer}
           />
+          <Buffs
+              activePlayer= {activePlayer}
+              clickBuff={() => this.removeElementBuff(activePlayer.id)}
+          />
         </Layout>    
       
     );
   }
 }
-
 
 export default App;
