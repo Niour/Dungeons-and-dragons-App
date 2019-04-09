@@ -20,7 +20,7 @@ let activePlayer = {
   intelligence: 10,
   wisdom: 10,
   charisma: 10,
-  buffs: ["mage armor"],
+  buffs: [],
   basestrenght: 10,
   baseDexterity: 12,
   baseConstitution: 13,
@@ -201,6 +201,7 @@ class App extends Component {
               activePlayer= {activePlayer}
           />
           <Buffs
+              name="caster Level"
               activePlayer= {activePlayer}
               clickBuff={(event) => this.removeElementBuff(event, activePlayer.id)}
           />

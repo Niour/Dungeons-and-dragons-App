@@ -1,0 +1,8 @@
+.Buff {
+    margin-left: 7px;
+    border: 1px solid #eee;
+    margin: 5px;
+    padding: 1px;
+    width: 50%;
+    display: flex;
+}
