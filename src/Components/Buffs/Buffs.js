@@ -9,6 +9,7 @@ const buffs = (props) => {
     return (
         <div className={classes.Buffs}>
             <div>
+                <button>Add Buff</button>
                 {props.activePlayer.buffs.map(element => 
                 <Buff
                     key={randomId()}

@@ -120,8 +120,18 @@ class App extends Component {
     this.setState ({elements});
   }
 
-  removeElementBuff = (id) => {
-    console.log();
+  removeElementBuff = (event, id) => {
+    const elementIndex = this.state.elements.findIndex(el => {
+      return el.id === id
+    });
+    const element = {...this.state.elements[elementIndex]};
+    element.buffs = element.buffs.filter(e => e!==event.target.textContent);   
+    const elements = [...this.state.elements];
+    elements[elementIndex] = element;
+    activePlayer=element;
+    this.setState( {
+      elements: elements
+    });
   }
 
   showBuffs = (id) => {
@@ -192,7 +202,7 @@ class App extends Component {
           />
           <Buffs
               activePlayer= {activePlayer}
-              clickBuff={() => this.removeElementBuff(activePlayer.id)}
+              clickBuff={(event) => this.removeElementBuff(event, activePlayer.id)}
           />
         </Layout>    
       
