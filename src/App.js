@@ -186,8 +186,8 @@ class App extends Component {
         <Layout>
           <div className={"Buttons-container"}>
           <button onClick={this.addCard}>Add Character</button>
-          <button>Import A Character</button>
-          <button>Undo</button>
+          <button>Import A Character (TbF)</button>
+          <button>Undo (TbF)</button>
           </div>
           <div className={"Cards-container"}>
             {this.state.elements.map(element => 
@@ -215,7 +215,6 @@ class App extends Component {
               clickBuff={(event) => this.removeElementBuff(event, activePlayer.id)}
           />
         </Layout>    
-      
     );
   }
 }

@@ -10,7 +10,8 @@ const buffs = (props) => {
         <div className={classes.Buffs}>
             <div>
                 <div className={classes.Dropdown}>
-                <button className={classes.DropBtn}>Add Buff</button> 
+                <button className={classes.DropBtn}>Add Buff(TbF)</button> 
+                
                 <div>
                     <a>Test 1 </a>
                     <a>Test 2</a>
@@ -20,6 +21,9 @@ const buffs = (props) => {
                     type="number"
                 />
                 </div>
+                <p>
+                    <button>Sort with Caster Level(TbF)</button>
+                </p>
                 {props.activePlayer.buffs.map(element => 
                 <Buff
                     key={randomId()}

@@ -6,3 +6,7 @@
     width: 50%;
     display: flex;
 }
+
+#Table {
+    border: 1px solid black;
+}

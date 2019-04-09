@@ -6,13 +6,16 @@ import core from '../../../core';
 
 const buff = (props) => {
     return (
-        <div className={classes.Buff}>
-            <p
-                key={randomId()}
-                onClick={props.clicked}>
-                {props.value}
-            </p>
-        </div>
+        <table className={classes.Buff}>
+            <tbody>
+                <tr
+                    key={randomId()}
+                    onClick={props.clicked}>
+                    <th>{props.value}</th>
+                    <th>5</th>
+                </tr>
+            </tbody>
+        </table>
     )
 }
 

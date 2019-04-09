@@ -30,7 +30,7 @@ const card = (props) => {
                 X
             </button>
             <button onClick={props.clickBuffs}>
-                Buffs
+                Buffs (TbF)
             </button>
             <button onClick={props.clickStats}>
                 Stats
