@@ -36,12 +36,13 @@ class App extends Component {
 
   updateStats = () => {
     const elementsId = [];
-    this.state.elements.findIndex(el => {
+    this.state.elements.map(e => e.findIndex(el => {
       return elementsId.push(el.id);
-    });
+    }));
     const elements = [...this.state.elements];
+    console.log(elementsId);
     for (let el in elementsId) {
-      elements[el].active = false
+      console.log(el);
     };
     this.setState( {
       elements: elements
@@ -56,6 +57,7 @@ class App extends Component {
     element.name = event.target.value;
     const elements = [...this.state.elements];
     elements[elementIndex] = element;
+    this.checkIfActivePlayer(element);
     this.setState( {
       elements: elements
     })
@@ -70,6 +72,7 @@ class App extends Component {
     element.initiative = Number(event.target.value);
     const elements = [...this.state.elements];
     elements[elementIndex] = element;
+    this.checkIfActivePlayer(element); // useless now maybe if initiative will render at Stats component
     this.setState({ elements: elements })
     this.timeout_ = setTimeout( () => this.sortElements(), 500);
   }
@@ -82,6 +85,7 @@ class App extends Component {
     element.hitpoints = Number(event.target.value);
     const elements = [...this.state.elements];
     elements[elementIndex] = element;
+    this.checkIfActivePlayer(element);
     this.setState( {
       elements: elements
     })
@@ -93,7 +97,7 @@ class App extends Component {
     elements: elements.sort((l, r) => r.initiative - l.initiative)
     });
   }
-
+// addCard needs update to coresponce to new State
   addCard = () => {
     const {elements} = this.state;
     elements[elements.length] = {
@@ -125,10 +129,10 @@ class App extends Component {
       return el.id === id
     });
     const element = {...this.state.elements[elementIndex]};
-    element.buffs = element.buffs.filter(e => e!==event.target.textContent);   
+    element.buffs = element.buffs.filter(e => e.name!==event.target.textContent);   
     const elements = [...this.state.elements];
     elements[elementIndex] = element;
-    activePlayer=element;
+    this.checkIfActivePlayer(element);
     this.setState( {
       elements: elements
     });
@@ -171,9 +175,14 @@ class App extends Component {
     })
   }
 
+  checkIfActivePlayer = (element) => {
+      if (element.id === activePlayer.id) {
+        activePlayer = element;
+      }
+  }
+
   render() {
     return (
-
         <Layout>
           <div className={"Buttons-container"}>
           <button onClick={this.addCard}>Add Character</button>
@@ -192,7 +201,7 @@ class App extends Component {
               onInitiativeChange={(event) => this.updateInitiative(event, element.id)}
               onHitpointsChange={(event) => this.updateHitpoints(event, element.id)}
               onRemove={() => this.removeElement(element.id)}
-              clickBuffs={() => this.deactivateAllPlayers()}
+              clickBuffs={() => this.updateStats()}
               clickStats={() => this.activePlayerProp(element.id)}
             />
             )} 

@@ -23,7 +23,7 @@ const buffs = (props) => {
                 {props.activePlayer.buffs.map(element => 
                 <Buff
                     key={randomId()}
-                    value={element}
+                    value={element.name}
                     clicked={props.clickBuff}
                     >
                 </Buff>
