@@ -181,6 +181,14 @@ class App extends Component {
       }
   }
 
+  sortActivePlayerWithLevels = () => {
+    activePlayer.buffs.sort((l, r) => r.casterLvl - l.casterLvl);
+    this.forceUpdate();
+  }
+
+
+  //checkifActive player changes so that Stats and buffs to refresh
+
   render() {
     return (
         <Layout>
@@ -210,9 +218,10 @@ class App extends Component {
               activePlayer= {activePlayer}
           />
           <Buffs
-              name="caster Level"
-              activePlayer= {activePlayer}
-              clickBuff={(event) => this.removeElementBuff(event, activePlayer.id)}
+            sortElementsWithLevel={() => this.sortActivePlayerWithLevels()}
+            name="caster Level"
+            activePlayer= {activePlayer}
+            clickBuff={(event) => this.removeElementBuff(event, activePlayer.id)}
           />
         </Layout>    
     );

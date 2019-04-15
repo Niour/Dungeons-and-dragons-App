@@ -22,16 +22,24 @@ const buffs = (props) => {
                 />
                 </div>
                 <p>
-                    <button>Sort with Caster Level(TbF)</button>
+                    <button
+                    onClick={props.sortElementsWithLevel}
+                    >Sort with Caster Level</button>
                 </p>
+                <table className={classes.ThisTable}>
+                    <tbody>
                 {props.activePlayer.buffs.map(element => 
                 <Buff
                     key={randomId()}
                     value={element.name}
+                    casterLvl={element.casterLvl}
                     clicked={props.clickBuff}
+                    type={element.type}
                     >
                 </Buff>
                 )}
+                    </tbody>
+                </table>
             </div>
         </div>
     )
