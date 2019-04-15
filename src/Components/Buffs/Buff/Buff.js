@@ -8,12 +8,12 @@ import Aux from '../../../hoc/Auxialiary';
 const buff = (props) => {
     return (
         <Aux>
-            <tr 
+            <tr className={classes.Row}
                 key={randomId()}
                 onClick={props.clicked}>
-                <th>{props.value}</th>
-                <th>{props.casterLvl}</th>
-                <th>{props.type}</th>
+                <th className={classes.Row}>{props.value}</th>
+                <th >{props.type}</th>
+                <th >{props.casterLvl}</th>
             </tr>
         </Aux>
     )
