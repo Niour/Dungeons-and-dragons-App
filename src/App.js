@@ -41,16 +41,19 @@ class App extends Component {
     let BuffModification = [];
     let testArray = null;
     // edw ftiaxnw ena Array boithitiko pou tha exei mazemena ta stats pou kerdizei o kathe paiktis
-    elements.forEach( player => { testArray = {playerId: player.id, values: []}; 
-      player.buffs                   // gia kathe buff tou player
-        .map( bf => { core          // gia kathe buff tou core
-          .find( coreBuff => { coreBuff.values    // gia kathe value tou creBuffs.values
-            .forEach ( (oneValue) => { if (coreBuff.name === bf.name) testArray.values.push({name: oneValue.name, type: oneValue.type, value: oneValue.value(bf.casterLvl)})});
-          })
-        });
-    BuffModification.push(testArray);})
+    elements
+      .forEach(player => {
+        testArray = {playerId: player.id, values: []}; 
+        player.buffs                   // gia kathe buff tou player
+          .map(bf => { core          // gia kathe buff tou core
+            .find( coreBuff => { coreBuff.values    // gia kathe value tou creBuffs.values
+              .forEach ((oneValue) => { if (coreBuff.name === bf.name) testArray.values.push({name: oneValue.name, type: oneValue.type, value: oneValue.value(bf.casterLvl)})});
+            })
+          });
+        BuffModification.push(testArray);
+      });
     console.log(BuffModification);
-}
+  }
   
   updateName = (event, id) => {
     const elementIndex = this.state.elements.findIndex(el => {
