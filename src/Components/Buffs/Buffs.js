@@ -9,18 +9,31 @@ const buffs = (props) => {
     return (
         <div className={classes.Buffs}>
             <div>
+
+
                 <div className={classes.Dropdown}>
-                <button className={classes.DropBtn}>Add Buff(TbF)</button> 
                 
-                <div>
-                    <a>Test 1 </a>
-                    <a>Test 2</a>
+                    <button className={classes.DropBtn}>Add Buff(TbF)</button> 
+
+                    
+                    <div className={classes.Dropdown_content} > DropDown Search(TbF)
+                    
+                        <input className={classes.MyInput}>
+
+                        </input>
+
+                        <span> </span>
+
+                    </div>
+
+                    <Input 
+                        label="Caster Level: "
+                        type="number"
+                    />
+
                 </div>
-                <Input 
-                    label="Caster Level: "
-                    type="number"
-                />
-                </div>
+
+                
                 <p>
                     <button
                     onClick={props.sortElementsWithLevel}

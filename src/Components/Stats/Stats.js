@@ -13,7 +13,7 @@ const stats = (props) => {
                 <p> <b>Player :</b>{props.activePlayer.name}</p>
                 <b><p style={pStyle}>Hit Points : {props.activePlayer.hitpoints}</p></b>
                 <p> Has this <b> Buffs : </b> {props.activePlayer.buffs.map(e => e.name).join(", ")}  </p>
-                <p> <b> Strenght :</b> {props.activePlayer.strenght} </p>
+                <p> <b> strength :</b> {props.activePlayer.strength} </p>
                 <p> <b> Dexterity :</b> {props.activePlayer.dexterity} </p>
                 <p> <b> Constitution :</b> {props.activePlayer.constitution} </p>
                 <p> <b> Intelligence :</b> {props.activePlayer.intelligence} </p>
