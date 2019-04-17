@@ -39,7 +39,6 @@ class App extends Component {
   updateStats = () => {
     const elements = [...this.state.elements];
     this.resetStats();
-    console.log(elements);
     let BuffModification = [];
     let testArray = null;
     // edw ftiaxnw ena Array boithitiko pou tha exei mazemena ta stats pou kerdizei o kathe paiktis
@@ -47,15 +46,15 @@ class App extends Component {
       .forEach(player => {
         testArray = {playerId: player.id, values: []}; 
         player.buffs                   // gia kathe buff tou player
-          .map(bf => { core          // gia kathe buff tou core
-            .find( coreBuff => { coreBuff.values    // gia kathe value tou creBuffs.values
+          .map(bf => { return core          // gia kathe buff tou core
+            .find( coreBuff => { return coreBuff.values    // gia kathe value tou creBuffs.values
               .forEach ((oneValue) => { if (coreBuff.name === bf.name) testArray.values.push({name: oneValue.name, type: oneValue.type, value: oneValue.value(bf.casterLvl)})});
             })
           });
         BuffModification.push(testArray);
       });
-    console.log(BuffModification);
-   /* let elementIndex = 0;
+    console.log("BuffModification: ", BuffModification);
+   let elementIndex = 0;
     bonusesTypes.forEach( e => {               // gia kathe Type  enchantment eg
       bonusesNames.forEach ( el => {           // gia kathe stat
         BuffModification.forEach ( ele => {    // gia kathe paikth
@@ -63,25 +62,29 @@ class App extends Component {
           let k = 0;
           ele.values.forEach( elem => {
               if ( elem.name === el && elem.type === e ) {
-                if ( e != "competence" && e !="untyped" && elem.value > i) {
+                if ( e !== "competence" && e !=="untyped" && elem.value > i) {
                   i = elem.value;
                   elementIndex = elements.findIndex(eleme => {
                     return eleme.id === ele.playerId
                   });
                   elements[elementIndex][el] = elements[elementIndex][el] + i;
               } else if ( e === "competence" || e === "untyped" ) {
-                elements[elementIndex][el] = elements[elementIndex][el] + i;
+                k = k + elem.value;
+                elementIndex = elements.findIndex(eleme => {
+                  return eleme.id === ele.playerId
+                });
+                elements[elementIndex][el] = elements[elementIndex][el] + k;
               } 
-          })
+          }
         })
       })
     })
-    console.log(elements);
     this.setState( {
       elements: elements
-    })   */
+    })   
     this.forceUpdate();
-  }
+  })
+}
 
   resetStats = () => {
     const elements = [...this.state.elements];

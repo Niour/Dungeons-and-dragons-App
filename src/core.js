@@ -82,6 +82,20 @@ values: [{
     type: "enchancement",
     value: () =>  2
 }]
+}, {
+    name: "Fatigue",
+    Duration: "10 min./level",
+    type: "Debuff",
+    level: 99,
+    values: [{
+        name: "constitution",
+        type: "untyped",
+        value: () => -2
+    },{
+        name: "strength",
+        type: "untyped",
+        value: () => -2
+    }]    
 }];
 
 export default core;
