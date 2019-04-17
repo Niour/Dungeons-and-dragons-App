@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Card from './Components/Card/Card';
 import {randomId} from './utils';
-import {initialState, bonusesTypes} from './constants';
+import {initialState, bonusesTypes, bonusesNames} from './constants';
 import Stats from './Components/Stats/Stats';
 import Layout from './Containers/Layout/Layout';
 import Buffs from './Components/Buffs/Buffs';
@@ -38,6 +38,8 @@ class App extends Component {
 
   updateStats = () => {
     const elements = [...this.state.elements];
+    this.resetStats();
+    console.log(elements);
     let BuffModification = [];
     let testArray = null;
     // edw ftiaxnw ena Array boithitiko pou tha exei mazemena ta stats pou kerdizei o kathe paiktis
@@ -53,6 +55,47 @@ class App extends Component {
         BuffModification.push(testArray);
       });
     console.log(BuffModification);
+   /* let elementIndex = 0;
+    bonusesTypes.forEach( e => {               // gia kathe Type  enchantment eg
+      bonusesNames.forEach ( el => {           // gia kathe stat
+        BuffModification.forEach ( ele => {    // gia kathe paikth
+          let i = 0;
+          let k = 0;
+          ele.values.forEach( elem => {
+              if ( elem.name === el && elem.type === e ) {
+                if ( e != "competence" && e !="untyped" && elem.value > i) {
+                  i = elem.value;
+                  elementIndex = elements.findIndex(eleme => {
+                    return eleme.id === ele.playerId
+                  });
+                  elements[elementIndex][el] = elements[elementIndex][el] + i;
+              } else if ( e === "competence" || e === "untyped" ) {
+                elements[elementIndex][el] = elements[elementIndex][el] + i;
+              } 
+          })
+        })
+      })
+    })
+    console.log(elements);
+    this.setState( {
+      elements: elements
+    })   */
+    this.forceUpdate();
+  }
+
+  resetStats = () => {
+    const elements = [...this.state.elements];
+    elements.forEach((e) => {
+      e.strength = e.baseStrength;
+      e.dexterity = e.baseDexterity;
+      e.constitution = e.baseConstitution;
+      e.intelligence = e.baseIntelligence;
+      e.wisdom = e.baseWisdom;
+      e.charisma = e.baseCharisma;
+    })
+    this.setState( {
+      elements: elements
+    })
   }
   
   updateName = (event, id) => {
