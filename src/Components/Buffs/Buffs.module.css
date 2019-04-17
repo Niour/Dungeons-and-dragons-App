@@ -1,0 +1,8 @@
+.Buffs {
+    width: 100%;
+    display: flex;
+}
+
+.ThisTable {
+  border: 1px solid black;
+}

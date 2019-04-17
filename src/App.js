@@ -3,10 +3,11 @@ import React, { Component } from 'react';
 import './App.css';
 import Card from './Components/Card/Card';
 import {randomId} from './utils';
-import {initialState} from './constants';
+import {initialState, bonusesTypes, bonusesNames} from './constants';
 import Stats from './Components/Stats/Stats';
-import Aux from './hoc/Auxialiary';
 import Layout from './Containers/Layout/Layout';
+import Buffs from './Components/Buffs/Buffs';
+import core from './core';
 
 let activePlayer = {
   id: randomId(),
@@ -14,19 +15,20 @@ let activePlayer = {
   initiative: 20,
   hitpoints: 100,
   active: true,
-  strenght: 10,
+  strength: 10,
   dexterity: 10,
   constitution: 10,
   intelligence: 10,
   wisdom: 10,
   charisma: 10,
-  buffs: ["mage armor"],
-  basestrenght: 10,
+  buffs: [],
+  basestrength: 10,
   baseDexterity: 12,
   baseConstitution: 13,
   baseIntelligence: 11,
   baseWisdom: 10,
   baseCharisma: 10,
+  upgrades: []
 };
 
 class App extends Component {
@@ -35,19 +37,65 @@ class App extends Component {
   };
 
   updateStats = () => {
-    const elementsId = [];
-    this.state.elements.findIndex(el => {
-      return elementsId.push(el.id);
-    });
     const elements = [...this.state.elements];
-    for (let el in elementsId) {
-      for (let i in elements[el].buffs) {
-        const elementIndex = i.findIndex (j => {
-          
+    this.resetStats();
+    let BuffModification = [];
+    let testArray = null;
+    // edw ftiaxnw ena Array boithitiko pou tha exei mazemena ta stats pou kerdizei o kathe paiktis
+    elements
+      .forEach(player => {
+        testArray = {playerId: player.id, values: []}; 
+        player.buffs                   // gia kathe buff tou player
+          .map(bf => { return core          // gia kathe buff tou core
+            .find( coreBuff => { return coreBuff.values    // gia kathe value tou creBuffs.values
+              .forEach ((oneValue) => { if (coreBuff.name === bf.name) testArray.values.push({name: oneValue.name, type: oneValue.type, value: oneValue.value(bf.casterLvl)})});
+            })
+          });
+        BuffModification.push(testArray);
+      });
+    console.log("BuffModification: ", BuffModification);
+   let elementIndex = 0;
+    bonusesTypes.forEach( e => {               // gia kathe Type  enchantment eg
+      bonusesNames.forEach ( el => {           // gia kathe stat
+        BuffModification.forEach ( ele => {    // gia kathe paikth
+          let i = 0;
+          let k = 0;
+          ele.values.forEach( elem => {
+              if ( elem.name === el && elem.type === e ) {
+                if ( e !== "competence" && e !=="untyped" && elem.value > i) {
+                  i = elem.value;
+                  elementIndex = elements.findIndex(eleme => {
+                    return eleme.id === ele.playerId
+                  });
+                  elements[elementIndex][el] = elements[elementIndex][el] + i;
+              } else if ( e === "competence" || e === "untyped" ) {
+                k = k + elem.value;
+                elementIndex = elements.findIndex(eleme => {
+                  return eleme.id === ele.playerId
+                });
+                elements[elementIndex][el] = elements[elementIndex][el] + k;
+              } 
+          }
         })
-      }
-      elements[el].active = false
-    };
+      })
+    })
+    this.setState( {
+      elements: elements
+    })   
+    this.forceUpdate();
+  })
+}
+
+  resetStats = () => {
+    const elements = [...this.state.elements];
+    elements.forEach((e) => {
+      e.strength = e.baseStrength;
+      e.dexterity = e.baseDexterity;
+      e.constitution = e.baseConstitution;
+      e.intelligence = e.baseIntelligence;
+      e.wisdom = e.baseWisdom;
+      e.charisma = e.baseCharisma;
+    })
     this.setState( {
       elements: elements
     })
@@ -61,6 +109,7 @@ class App extends Component {
     element.name = event.target.value;
     const elements = [...this.state.elements];
     elements[elementIndex] = element;
+    this.checkIfActivePlayer(element);
     this.setState( {
       elements: elements
     })
@@ -75,6 +124,7 @@ class App extends Component {
     element.initiative = Number(event.target.value);
     const elements = [...this.state.elements];
     elements[elementIndex] = element;
+    this.checkIfActivePlayer(element); // useless now maybe if initiative will render at Stats component
     this.setState({ elements: elements })
     this.timeout_ = setTimeout( () => this.sortElements(), 500);
   }
@@ -87,6 +137,7 @@ class App extends Component {
     element.hitpoints = Number(event.target.value);
     const elements = [...this.state.elements];
     elements[elementIndex] = element;
+    this.checkIfActivePlayer(element);
     this.setState( {
       elements: elements
     })
@@ -98,7 +149,7 @@ class App extends Component {
     elements: elements.sort((l, r) => r.initiative - l.initiative)
     });
   }
-
+// addCard needs update to coresponce to new State
   addCard = () => {
     const {elements} = this.state;
     elements[elements.length] = {
@@ -106,7 +157,7 @@ class App extends Component {
         name: `Player ${elements.length +1}`,
         initiative: 10,
         hitpoints: 100,
-        strenght: 10,
+        strength: 10,
         dexterity: 10,
         constitution: 10,
         intelligence: 10,
@@ -123,6 +174,20 @@ class App extends Component {
     let {elements} = this.state;
     elements = elements.filter(el => el.id !== id); // performace*
     this.setState ({elements});
+  }
+
+  removeElementBuff = (event, id) => {
+    const elementIndex = this.state.elements.findIndex(el => {
+      return el.id === id
+    });
+    const element = {...this.state.elements[elementIndex]};
+    element.buffs = element.buffs.filter(e => e.name!==event.target.textContent);   
+    const elements = [...this.state.elements];
+    elements[elementIndex] = element;
+    this.checkIfActivePlayer(element);
+    this.setState( {
+      elements: elements
+    });
   }
 
   showBuffs = (id) => {
@@ -162,14 +227,27 @@ class App extends Component {
     })
   }
 
+  checkIfActivePlayer = (element) => {
+      if (element.id === activePlayer.id) {
+        activePlayer = element;
+      }
+  }
+
+  sortActivePlayerWithLevels = () => {
+    activePlayer.buffs.sort((l, r) => r.casterLvl - l.casterLvl);
+    this.forceUpdate();
+  }
+
+
+  //checkifActive player changes so that Stats and buffs to refresh
+
   render() {
     return (
-
         <Layout>
           <div className={"Buttons-container"}>
           <button onClick={this.addCard}>Add Character</button>
-          <button>Import A Character</button>
-          <button>Undo</button>
+          <button>Import A Character (TbF)</button>
+          <button>Undo (TbF)</button>
           </div>
           <div className={"Cards-container"}>
             {this.state.elements.map(element => 
@@ -183,7 +261,7 @@ class App extends Component {
               onInitiativeChange={(event) => this.updateInitiative(event, element.id)}
               onHitpointsChange={(event) => this.updateHitpoints(event, element.id)}
               onRemove={() => this.removeElement(element.id)}
-              clickBuffs={() => this.deactivateAllPlayers()}
+              clickBuffs={() => this.updateStats()}
               clickStats={() => this.activePlayerProp(element.id)}
             />
             )} 
@@ -191,11 +269,15 @@ class App extends Component {
           <Stats 
               activePlayer= {activePlayer}
           />
+          <Buffs
+            sortElementsWithLevel={() => this.sortActivePlayerWithLevels()}
+            name="caster Level"
+            activePlayer= {activePlayer}
+            clickBuff={(event) => this.removeElementBuff(event, activePlayer.id)}
+          />
         </Layout>    
-      
     );
   }
 }
-
 
 export default App;

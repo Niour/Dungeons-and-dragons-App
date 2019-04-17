@@ -1,62 +1,101 @@
-const buffs = [{
+const core = [{
     name: "Cats Grace",
     Duration: "1 min./level",
+    type: "Cleric",
+    level: 2,
     values: [{
-        strenght: enchancement,
-        value: 4
+        name: "dexterity",
+        type: "enchancement",
+        value: () =>  4 
     }]    
 }, {
     name: "Bears Endurance",
     Duration: "1 min./level",
+    type: "Cleric",
+    level: 2,
     values: [{
-        constitution: enchancement,
-        value: 4
+        name: "constitution",
+        type: "enchancement",
+        value: () => 4
     }]    
 }, {
-    name: "Bull's Strenght",
+    name: "Bull's strength",
     Duration: "1 min./level",
+    type: "Cleric",
+    level: 2,
     values: [{
-        dexterity: enchancement,
-        value: 4
+        name: "strength",
+        type: "enchancement",
+        value: () => 4
     }]    
 }, {
     name: "Eagle's Splendor",
     Duration: "1 min./level",
+    type: "Cleric",
+    level: 2,
     values: [{
-        charisma: enchancement,
-        value: 4
+        name: "charisma",
+        type: "enchancement",
+        value: () => 4
     }]    
 }, {
     name: "Fox's Cunning",
     Duration: "1 min./level",
+    type: "Cleric",
+    level: 2,
     values: [{
-        intelligence: enchancement,
-        value: 4
+        name: "intelligence",
+        type: "enchancement",
+        value: () =>  4
     }]    
 }, {name: "Transformation",
     Duration: "1 round/level",
+    type: "Cleric",
+    level: 6,
     values: [{
-        strenght: enchancement, 
-        value: 4
+        name: "strength",
+        type: "enchancement",
+        value: () =>  4
     }, {
-        dexterity: enchancement,
-        value: 4
+        name: "dexterity",
+        type: "enchancement",
+        value: () =>  4
     }, {
-        constitution: enchancement,
-        value: 4
+        name: "constitution",
+        type: "enchancement",
+        value: () =>  4
     }]
 }, {name: "Test Lesser Transformation",
 Duration: "1 round/level",
+type: "Druid",
+level: 4,
 values: [{
-    strenght: enchancement, 
-    value: 2
+    name: "strength",
+    type: "enchancement",
+    value: () =>  2
 }, {
-    dexterity: enchancement,
-    value: 2
+    name: "dexterity",
+    type: "enchancement",
+    value: () =>  2
 }, {
-    constitution: enchancement,
-    value: 2
+    name: "constitution",
+    type: "enchancement",
+    value: () =>  2
 }]
+}, {
+    name: "Fatigue",
+    Duration: "10 min./level",
+    type: "Debuff",
+    level: 99,
+    values: [{
+        name: "constitution",
+        type: "untyped",
+        value: () => -2
+    },{
+        name: "strength",
+        type: "untyped",
+        value: () => -2
+    }]    
 }];
 
-export default buffs;
+export default core;
