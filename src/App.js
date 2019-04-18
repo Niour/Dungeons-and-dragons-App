@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Card from './Components/Card/Card';
 import {randomId} from './utils';
-import {initialState, bonusesTypes, bonusesNames} from './constants';
+import {initialState, bonusesTypes, bonusesNames } from './constants';
 import Stats from './Components/Stats/Stats';
 import Layout from './Containers/Layout/Layout';
 import Buffs from './Components/Buffs/Buffs';
@@ -48,13 +48,17 @@ class App extends Component {
         player.buffs                   // gia kathe buff tou player
           .map(bf => { return core          // gia kathe buff tou core
             .find( coreBuff => { return coreBuff.values    // gia kathe value tou creBuffs.values
-              .forEach ((oneValue) => { if (coreBuff.name === bf.name) testArray.values.push({name: oneValue.name, type: oneValue.type, value: oneValue.value(bf.casterLvl)})});
-            })
+              .forEach ((oneValue) => {
+                if (coreBuff.name === bf.name) {
+                  testArray.values.push({name: oneValue.name, type: oneValue.type, value: oneValue.value(bf.casterLvl)})
+                }
+              });
+            });
           });
         BuffModification.push(testArray);
       });
     console.log("BuffModification: ", BuffModification);
-   let elementIndex = 0;
+    let elementIndex = 0;
     bonusesTypes.forEach( e => {               // gia kathe Type  enchantment eg
       bonusesNames.forEach ( el => {           // gia kathe stat
         BuffModification.forEach ( ele => {    // gia kathe paikth
@@ -275,7 +279,7 @@ class App extends Component {
             activePlayer= {activePlayer}
             clickBuff={(event) => this.removeElementBuff(event, activePlayer.id)}
           />
-        </Layout>    
+      </Layout>    
     );
   }
 }

@@ -4,6 +4,10 @@ import classes from "./Buffs.module.css";
 import {randomId} from '../../utils';
 import Buff from './Buff/Buff';
 import {Input} from './../Card/Input';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownToggle from 'react-bootstrap/DropdownToggle';
+import DropdownItem from 'react-bootstrap/DropdownItem';
+
 
 const buffs = (props) => {
     return (
@@ -13,8 +17,17 @@ const buffs = (props) => {
 
                 <div className={classes.Dropdown}>
                 
-                    <button className={classes.DropBtn}>Add Buff(TbF)</button> 
+                <Dropdown>
+  <Dropdown.Toggle  id="dropdown-basic">
+    Dropdown Button
+  </Dropdown.Toggle>
 
+  <Dropdown.Menu>
+    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+  </Dropdown.Menu>
+</Dropdown>;
                     
                     <div className={classes.Dropdown_content} > DropDown Search(TbF)
                     
