@@ -4,49 +4,33 @@ import classes from "./Buffs.module.css";
 import {randomId} from '../../utils';
 import Buff from './Buff/Buff';
 import {Input} from './../Card/Input';
+import CustomMenu from '../../Containers/Boost/CustomMenu';
 import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownToggle from 'react-bootstrap/DropdownToggle';
-import DropdownItem from 'react-bootstrap/DropdownItem';
+import CustomToggle from '../../Containers/Boost/CustomToggle';
 
 
 const buffs = (props) => {
     return (
         <div className={classes.Buffs}>
             <div>
-
-
                 <div className={classes.Dropdown}>
                 
-                <Dropdown>
-  <Dropdown.Toggle  id="dropdown-basic">
-    Dropdown Button
-  </Dropdown.Toggle>
-
-  <Dropdown.Menu>
-    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-  </Dropdown.Menu>
-</Dropdown>;
-                    
-                    <div className={classes.Dropdown_content} > DropDown Search(TbF)
-                    
-                        <input className={classes.MyInput}>
-
-                        </input>
-
-                        <span> </span>
-
-                    </div>
-
+                    <Dropdown>
+                        <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
+                        Add Buff (TbF)
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu as={CustomMenu}>
+                        <Dropdown.Item >Test-Spell-1 </Dropdown.Item>
+                        <Dropdown.Item >Test-Spell-2 </Dropdown.Item>
+                        <Dropdown.Item >Test-Spell-3</Dropdown.Item>
+                        <Dropdown.Item >Test-Spell-4</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
                     <Input 
                         label="Caster Level: "
                         type="number"
                     />
-
                 </div>
-
-                
                 <p>
                     <button
                     onClick={props.sortElementsWithLevel}
@@ -54,6 +38,12 @@ const buffs = (props) => {
                 </p>
                 <table className={classes.ThisTable}>
                     <tbody>
+                        <tr>
+                            <th className={classes.ThisTable}>Buff</th>
+                            <th className={classes.ThisTable}>Class</th>
+                            <th className={classes.ThisTable}>Level</th>
+                            <th className={classes.ThisTable}>Duration</th>
+                        </tr>
                 {props.activePlayer.buffs.map(element => 
                 <Buff
                     key={randomId()}
@@ -61,6 +51,7 @@ const buffs = (props) => {
                     casterLvl={element.casterLvl}
                     clicked={props.clickBuff}
                     type={element.type}
+                    duration={element.duration}
                     >
                 </Buff>
                 )}

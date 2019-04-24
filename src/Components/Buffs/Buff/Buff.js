@@ -2,20 +2,17 @@ import React from 'react';
 
 import classes from "./Buff.module.css";
 import {randomId} from '../../../utils';
-import core from '../../../core';
-import Aux from '../../../hoc/Auxialiary';
 
 const buff = (props) => {
     return (
-        <Aux>
             <tr className={classes.Row}
                 key={randomId()}
                 onClick={props.clicked}>
-                <th className={classes.Row}>{props.value}</th>
-                <th >{props.type}</th>
-                <th >{props.casterLvl}</th>
+                <td className={classes.Row}>{props.value}</td>
+                <td className={classes.Row}>{props.type} </td>
+                <td className={classes.Row}>{props.casterLvl}</td>
+                <td className={classes.Row}>{props.duration}</td>
             </tr>
-        </Aux>
     )
 }
 
