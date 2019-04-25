@@ -36,7 +36,7 @@ class CustomMenu extends Component {
             onChange={this.handleChange}
             value={value}
           />
-          <ul className="list-unstyled">
+          <ul className="list-unstyled" onClick={(event)=>console.log(event.target.id)}>
           { React.Children.toArray(children).filter(
             child =>
               !value || child.props.children.toLowerCase().startsWith(value),

@@ -20,7 +20,7 @@ const buffs = (props) => {
                         Add Buff (TbF)
                         </Dropdown.Toggle>
                         <Dropdown.Menu as={CustomMenu}
-                        children = {core.map( (element) => {return <div key={element.id}>{element.name}</div> } )}
+                        children = {core.map( (element) => {return <div id={element.id}>{element.name}</div> } )}
                         >
                         </Dropdown.Menu>
                     </Dropdown>

@@ -194,6 +194,10 @@ class App extends Component {
     });
   }
 
+  addElementBuff = (event, id) => {
+    
+  }
+
   showBuffs = (id) => {
     const elementIndex = this.state.elements.findIndex(el => {
       return el.id === id
