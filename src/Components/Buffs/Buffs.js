@@ -7,7 +7,7 @@ import {Input} from './../Card/Input';
 import CustomMenu from '../../Containers/Boost/CustomMenu';
 import Dropdown from 'react-bootstrap/Dropdown';
 import CustomToggle from '../../Containers/Boost/CustomToggle';
-
+import core from '../../core';
 
 const buffs = (props) => {
     return (
@@ -19,11 +19,9 @@ const buffs = (props) => {
                         <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                         Add Buff (TbF)
                         </Dropdown.Toggle>
-                        <Dropdown.Menu as={CustomMenu}>
-                        <Dropdown.Item >Test-Spell-1 </Dropdown.Item>
-                        <Dropdown.Item >Test-Spell-2 </Dropdown.Item>
-                        <Dropdown.Item >Test-Spell-3</Dropdown.Item>
-                        <Dropdown.Item >Test-Spell-4</Dropdown.Item>
+                        <Dropdown.Menu as={CustomMenu}
+                        children = {core.map( (element) => {return <div key={element.id}>{element.name}</div> } )}
+                        >
                         </Dropdown.Menu>
                     </Dropdown>
                     <Input 

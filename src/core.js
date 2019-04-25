@@ -1,5 +1,8 @@
+import {randomId} from './utils.js';
+
 const core = [{
     name: "Cats Grace",
+    id: randomId(),
     Duration: "1 min./level",
     type: "Cleric",
     level: 2,
@@ -10,6 +13,7 @@ const core = [{
     }]    
 }, {
     name: "Bears Endurance",
+    id: randomId(),
     Duration: "1 min./level",
     type: "Cleric",
     level: 2,
@@ -20,6 +24,7 @@ const core = [{
     }]    
 }, {
     name: "Bull's strength",
+    id: randomId(),
     Duration: "1 min./level",
     type: "Cleric",
     level: 2,
@@ -30,6 +35,7 @@ const core = [{
     }]    
 }, {
     name: "Eagle's Splendor",
+    id: randomId(),
     Duration: "1 min./level",
     type: "Cleric",
     level: 2,
@@ -40,6 +46,7 @@ const core = [{
     }]    
 }, {
     name: "Fox's Cunning",
+    id: randomId(),
     Duration: "1 min./level",
     type: "Cleric",
     level: 2,
@@ -49,6 +56,7 @@ const core = [{
         value: () =>  4
     }]    
 }, {name: "Transformation",
+    id: randomId(),
     Duration: "1 round/level",
     type: "Cleric",
     level: 6,
@@ -66,6 +74,7 @@ const core = [{
         value: () =>  4
     }]
 }, {name: "Test Lesser Transformation",
+    id: randomId(),
 Duration: "1 round/level",
 type: "Druid",
 level: 4,
@@ -84,6 +93,7 @@ values: [{
 }]
 }, {
     name: "Fatigue",
+    id: randomId(),
     Duration: "10 min./level",
     type: "Debuff",
     level: 99,

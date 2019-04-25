@@ -14,7 +14,7 @@ class CustomMenu extends Component {
     }
   
     handleChange(e) {
-      this.setState({ value: e.target.value.toLowerCase().trim() });
+      this.setState({ value: e.target.value.toLowerCase() });
     }
   
     render() {
@@ -37,10 +37,10 @@ class CustomMenu extends Component {
             value={value}
           />
           <ul className="list-unstyled">
-            {React.Children.toArray(children).filter(
-              child =>
-                !value || child.props.children.toLowerCase().startsWith(value),
-            )}
+          { React.Children.toArray(children).filter(
+            child =>
+              !value || child.props.children.toLowerCase().startsWith(value),
+          )}
           </ul>
         </div>
       );
