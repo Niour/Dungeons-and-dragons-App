@@ -95,7 +95,7 @@ values: [{
     name: "Fatigue",
     id: randomId(),
     Duration: "10 min./level",
-    type: "Debuff",
+    type: "Condition",
     level: 99,
     values: [{
         name: "constitution",
