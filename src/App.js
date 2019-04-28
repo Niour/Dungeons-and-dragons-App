@@ -47,7 +47,7 @@ class App extends Component {
         testArray = {playerId: player.id, values: []}; 
         player.buffs                   // gia kathe buff tou player
           .map(bf => { return core          // gia kathe buff tou core
-            .find( coreBuff => { return coreBuff.values    // gia kathe value tou creBuffs.values
+            .find( coreBuff => { return coreBuff.values    // gia kathe value tou coreBuffs.values
               .forEach ((oneValue) => {
                 if (coreBuff.name === bf.name) {
                   testArray.values.push({name: oneValue.name, type: oneValue.type, value: oneValue.value(bf.casterLvl)})
@@ -66,13 +66,13 @@ class App extends Component {
           let k = 0;
           ele.values.forEach( elem => {
               if ( elem.name === el && elem.type === e ) {
-                if ( e !== "competence" && e !=="untyped" && elem.value > i) {
+                if ( e !== "circumstance" && e !=="untyped" && e !== "dodge" && elem.value > i) {
                   i = elem.value;
                   elementIndex = elements.findIndex(eleme => {
                     return eleme.id === ele.playerId
                   });
                   elements[elementIndex][el] = elements[elementIndex][el] + i;
-              } else if ( e === "competence" || e === "untyped" ) {
+              } else if ( e === "circumstance" || e === "untyped" || e=== "dodge") {
                 k = k + elem.value;
                 elementIndex = elements.findIndex(eleme => {
                   return eleme.id === ele.playerId

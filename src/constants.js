@@ -23,6 +23,8 @@ export const initialState = [{
     baseWisdom: 10,
     baseCharisma: 10,
     upgrades: [],
+    size: "Medium",
+    NegativeLevels: 0,
     fort: 0,
     ref: 0,
     will: 0,
@@ -30,6 +32,7 @@ export const initialState = [{
     baseRef: 0,
     baseWill: 0,
     attackRoll: 0,
+    Bab: 0,
     baseAttackBab: 0,
   }, {
     id: randomId(),
@@ -149,5 +152,9 @@ export const initialState = [{
     baseAttackBab: 0,
   }];
 
-  export const bonusesTypes = ["enchancement", "racial","untyped"];
+  export const bonusesTypes = ["enchancement", "racial","untyped", "circumstance", "alchemicalBonus", "dodge",
+                              "armor bonus","enhancement armor bonus", "natural armor bonus", "enhancement natural armor bonus",
+                              "shield bonus", "enhancement shield bonus",
+                              "competence", "deflection", "insight", "luck", "morale", "profane", "reistance", "sacred",
+                              "size", "epic", "divine", "ability drain"];
   export const bonusesNames = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"];
