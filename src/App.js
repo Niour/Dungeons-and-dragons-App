@@ -99,6 +99,9 @@ class App extends Component {
       e.intelligence = e.baseIntelligence;
       e.wisdom = e.baseWisdom;
       e.charisma = e.baseCharisma;
+      e.fort = e.baseFort;
+      e.ref = e.baseRef;
+      e.will = e.baseWill;
     })
     this.setState( {
       elements: elements
