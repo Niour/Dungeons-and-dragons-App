@@ -210,6 +210,8 @@ class App extends Component {
       return el.name === event.target.textContent
     });
     const player = {...this.state.elements[playerIndex]};
+    console.log(buffIndex);
+    if (buffIndex !== -1) {  // this is a fix for an issue if buff was not clicked right at the text
     player.buffs.push(  Object({name: core[buffIndex].name,
       casterLvl: buffCasterLevel,
       type: core[buffIndex].type,
@@ -222,7 +224,7 @@ class App extends Component {
     this.checkIfActivePlayer(player);
     this.setState( {
       elements: elements
-    });
+    });}
   }
 
   showBuffs = (id) => {
