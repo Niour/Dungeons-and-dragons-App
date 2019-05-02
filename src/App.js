@@ -9,6 +9,7 @@ import Layout from './Containers/Layout/Layout';
 import Buffs from './Components/Buffs/Buffs';
 import core from './core';
 
+let buffCasterLevel;
 let activePlayer = {
   id: randomId(),
   name: "Plz select a player",
@@ -197,8 +198,29 @@ class App extends Component {
     });
   }
 
+  updateBuffCasterLevel = (event) => {
+    buffCasterLevel = Number(event.target.value);
+  }
+
   addElementBuff = (event, id) => {
-    
+    const playerIndex = this.state.elements.findIndex(pl => {
+      return pl.id === id
+    });
+    const buffIndex = core.findIndex(el => {
+      return el.name === event.target.textContent
+    });
+    const player = {...this.state.elements[playerIndex]};
+    player.buffs.push(  Object({name: core[buffIndex].name,
+      casterLvl: buffCasterLevel,
+      type: core[buffIndex].type,
+      duration: core[buffIndex].Duration})
+      ); //{name: "Cats Grace", casterLvl: 5, type: "Cleric", duration: "MIN/LVL"}, 
+    const elements = [...this.state.elements];
+    elements[playerIndex] = player;
+    this.checkIfActivePlayer(player);
+    this.setState( {
+      elements: elements
+    });
   }
 
   showBuffs = (id) => {
@@ -285,6 +307,8 @@ class App extends Component {
             name="caster Level"
             activePlayer= {activePlayer}
             clickBuff={(event) => this.removeElementBuff(event, activePlayer.id)}
+            clickAddBuff={(event) => this.addElementBuff(event, activePlayer.id)}
+            updateBuffCasterLevel={(event) => this.updateBuffCasterLevel(event)}
           />
       </Layout>    
     );

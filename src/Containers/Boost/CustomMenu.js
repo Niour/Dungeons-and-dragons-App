@@ -22,6 +22,7 @@ class CustomMenu extends Component {
         children,
         style,
         className,
+        clicked,
         'aria-labelledby': labeledBy,
       } = this.props;
   
@@ -36,7 +37,7 @@ class CustomMenu extends Component {
             onChange={this.handleChange}
             value={value}
           />
-          <ul className="list-unstyled" onClick={(event)=>console.log(event.target.id)}>
+          <ul className="list-unstyled" onClick={clicked}>
           { React.Children.toArray(children).filter(
             child =>
               !value || child.props.children.toLowerCase().startsWith(value),

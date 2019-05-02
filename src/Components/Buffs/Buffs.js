@@ -19,12 +19,15 @@ const buffs = (props) => {
                         <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                         Add Buff (TbF)
                         </Dropdown.Toggle>
-                        <Dropdown.Menu as={CustomMenu}
-                        children = {core.map( (element) => {return <div id={element.id}>{element.name}</div> } )}
+                        <Dropdown.Menu 
+                            as={CustomMenu}
+                            children = {core.map( (element) => {return <div id={element.id}>{element.name}</div> } )}
+                            clicked={props.clickAddBuff}
                         >
                         </Dropdown.Menu>
                     </Dropdown>
                     <Input 
+                        onChange={props.updateBuffCasterLevel}
                         label="Caster Level: "
                         type="number"
                     />
