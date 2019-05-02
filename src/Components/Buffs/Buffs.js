@@ -42,17 +42,15 @@ const buffs = (props) => {
                         <tr>
                             <th className={classes.ThisTable}>Buff</th>
                             <th className={classes.ThisTable}>Class</th>
-                            <th className={classes.ThisTable}>Level</th>
+                            <th className={classes.ThisTable}>Cast.Lvl</th>
                             <th className={classes.ThisTable}>Duration</th>
+                            <th className={classes.ThisTable}>Spell.Lvl</th>
                         </tr>
                 {props.activePlayer.buffs.map(element => 
                 <Buff
                     key={randomId()}
-                    value={element.name}
-                    casterLvl={element.casterLvl}
                     clicked={props.clickBuff}
-                    type={element.type}
-                    duration={element.duration}
+                    element={element}
                     >
                 </Buff>
                 )}

@@ -213,7 +213,9 @@ class App extends Component {
     player.buffs.push(  Object({name: core[buffIndex].name,
       casterLvl: buffCasterLevel,
       type: core[buffIndex].type,
-      duration: core[buffIndex].Duration})
+      class: core[buffIndex].class,
+      duration: core[buffIndex].Duration,
+      spellLvl: core[buffIndex].level})
       ); //{name: "Cats Grace", casterLvl: 5, type: "Cleric", duration: "MIN/LVL"}, 
     const elements = [...this.state.elements];
     elements[playerIndex] = player;

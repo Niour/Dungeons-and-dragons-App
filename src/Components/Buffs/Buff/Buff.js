@@ -8,10 +8,11 @@ const buff = (props) => {
             <tr className={classes.Row}
                 key={randomId()}
                 onClick={props.clicked}>
-                <td className={classes.Row}>{props.value}</td>
-                <td className={classes.Row}>{props.type} </td>
-                <td className={classes.Row}>{props.casterLvl}</td>
-                <td className={classes.Row}>{props.duration}</td>
+                <td className={classes.Row}>{props.element.name}</td>
+                <td className={classes.Row}>{props.element.type === "spell" ? props.element.class : " "} </td>
+                <td className={classes.Row}>{props.element.casterLvl}</td>
+                <td className={classes.Row}>{props.element.duration}</td>
+                <td className={classes.Row}>{props.element.spellLvl}</td>
             </tr>
     )
 }
