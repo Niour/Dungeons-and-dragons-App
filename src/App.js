@@ -23,13 +23,30 @@ let activePlayer = {
   wisdom: 10,
   charisma: 10,
   buffs: [],
-  basestrength: 10,
-  baseDexterity: 12,
-  baseConstitution: 13,
-  baseIntelligence: 11,
+  baseStrength: 10,
+  baseDexterity: 10,
+  baseConstitution: 10,
+  baseIntelligence: 10,
   baseWisdom: 10,
   baseCharisma: 10,
-  upgrades: []
+  upgrades: [],
+  fort: 0,
+  ref: 0,
+  will: 0,
+  baseFort: 0,
+  baseRef: 0,
+  baseWill: 0,
+  attackRoll: 0,
+  Bab: 0,
+  baseAttackBab: 0,
+  size: "Medium",
+  NegativeLevels: 1,
+  damage: 0,
+  grapple: 0,
+  ac: 0,
+  baseAc: 10,
+  touchAcL: 0,
+  flatfoodedAc: 0,
 };
 
 class App extends Component {
@@ -150,6 +167,22 @@ class App extends Component {
       elements: elements
     })
   };
+
+  updateNegativeLevels = (event, id) => {
+    const elementIndex = this.state.elements.findIndex(el => {
+      return el.id === id
+    });
+    const element = {...this.state.elements[elementIndex]};
+    element.NegativeLevels = Number(event.target.value);
+    const elements = [...this.state.elements];
+    elements[elementIndex] = element;
+    this.checkIfActivePlayer(element);
+    this.setState( {
+      elements: elements
+    });
+    this.updateStats();
+  };
+
 
   sortElements() {
     const {elements} = this.state;
@@ -305,6 +338,7 @@ class App extends Component {
           </div>
           <Stats 
               activePlayer= {activePlayer}
+              onNegativeLevelsChange={(event) => this.updateNegativeLevels(event, activePlayer.id)}
           />
           <Buffs
             sortElementsWithLevel={() => this.sortActivePlayerWithLevels()}
