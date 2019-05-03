@@ -33,7 +33,7 @@ export const initialState = [{
     Bab: 0,
     baseAttackBab: 0,
     size: "Medium",
-    NegativeLevels: 1,
+    NegativeLevels: 10,
     damage: 0,
     grapple: 0,
     ac: 0,

@@ -180,7 +180,6 @@ class App extends Component {
     this.setState( {
       elements: elements
     });
-    this.updateStats();
   };
 
 
@@ -313,7 +312,7 @@ class App extends Component {
 
   render() {
     return (
-        <Layout>
+          <Layout >
           <div className={"Buttons-container"}>
           <button onClick={this.addCard}>Add Character</button>
           <button>Import A Character (TbF)</button>
@@ -348,7 +347,7 @@ class App extends Component {
             clickAddBuff={(event) => this.addElementBuff(event, activePlayer.id)}
             updateBuffCasterLevel={(event) => this.updateBuffCasterLevel(event)}
           />
-      </Layout>    
+      </Layout>
     );
   }
 }
