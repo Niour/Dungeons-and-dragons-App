@@ -1,0 +1,20 @@
+[ Stats, 
+  Saves, 
+  Bab, Attack, 
+  Ac, touch, flatfootedAc ] 
+
+[ Buffs: Spells/conditions/Equipment        	Filter Spells/Conditions/Equipment/special Ability
+  Negative Levels,                          	Implement
+  Size, 				    	Implement
+  Modes: [ invisibility, fightDefensivly,   	Implement
+	   totalDefence, flank, highGround,
+	   PowerAttack, ]
+
+PushBuffs()
+Push Negative Levels()
+Push Size()
+Push Modes()
+UpdateStats()
+UpdateSaves()
+UpdateAC()
+UpdateAttack()
