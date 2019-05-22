@@ -54,27 +54,16 @@ class App extends Component {
     elements: initialState,
   };
 
+  
+
   updateStats = () => {
     const elements = [...this.state.elements];
     this.resetStats();
     let BuffModification = [];
     let testArray = null;
     // edw ftiaxnw ena Array boithitiko pou tha exei mazemena ta stats pou kerdizei o kathe paiktis
-    elements
-      .forEach(player => {
-        testArray = {playerId: player.id, values: []}; 
-        player.buffs                   // gia kathe buff tou player
-          .map(bf => { return core          // gia kathe buff tou core
-            .find( coreBuff => { return coreBuff.values    // gia kathe value tou coreBuffs.values
-              .forEach ((oneValue) => {
-                if (coreBuff.name === bf.name) {
-                  testArray.values.push({name: oneValue.name, type: oneValue.type, value: oneValue.value(bf.casterLvl)})
-                }
-              });
-            });
-          });
-        BuffModification.push(testArray);
-      });
+    this.pushBuffs(elements, BuffModification, testArray);
+    this.pushNegativeLevels(elements, BuffModification, testArray);
     console.log("BuffModification: ", BuffModification);
     let elementIndex = 0;
     bonusesTypes.forEach( e => {               // gia kathe Type  enchantment eg
@@ -107,6 +96,47 @@ class App extends Component {
     this.forceUpdate();
   })
 }
+
+  pushBuffs = (elements, BuffModification, testArray) => {
+    elements
+    .forEach(player => {
+      testArray = {playerId: player.id, values: []}; 
+      player.buffs                   // gia kathe buff tou player
+        .map(bf => { return core          // gia kathe buff tou core
+          .find( coreBuff => { return coreBuff.values    // gia kathe value tou coreBuffs.values
+            .forEach ((oneValue) => {
+              if (coreBuff.name === bf.name) {
+                testArray.values.push({name: oneValue.name, type: oneValue.type, value: oneValue.value(bf.casterLvl)})
+              }
+            });
+          });
+        });
+      BuffModification.push(testArray);
+      testArray = null; 
+    });
+  }
+
+  pushNegativeLevels = (elements, BuffModification, testArray) => {
+    elements
+    .forEach(player => {
+      testArray = {playerId: player.id, values: []}; 
+      player.buffs                        // gia kathe buff tou player
+        .map(bf => { return core          // gia kathe buff tou core
+          .find( coreBuff => { return coreBuff.values    // gia kathe value tou coreBuffs.values
+            .forEach ((oneValue) => {
+              if (coreBuff.name === bf.name) {
+                testArray.values.push({name: oneValue.name, type: oneValue.type, value: oneValue.value(bf.casterLvl)})
+              }
+            });
+          });
+        });
+      BuffModification.push(testArray);
+      testArray = null; 
+    });
+  }
+
+
+
 
   resetStats = () => {
     const elements = [...this.state.elements];
