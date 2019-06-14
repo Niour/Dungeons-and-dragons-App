@@ -62,7 +62,7 @@ class App extends Component {
     let BuffModification = [];
     let testArray = null;
     // edw ftiaxnw ena Array boithitiko pou tha exei mazemena ta stats pou kerdizei o kathe paiktis
-    this.pushBuffs(elements, BuffModification, testArray);
+    //this.pushBuffs(elements, BuffModification, testArray);
     this.pushNegativeLevels(elements, BuffModification, testArray);
     console.log("BuffModification: ", BuffModification);
     let elementIndex = 0;
