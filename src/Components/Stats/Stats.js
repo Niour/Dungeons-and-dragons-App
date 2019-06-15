@@ -2,6 +2,11 @@ import React from 'react';
 
 import classes from './Stats.module.css';
 import {Input} from '../Card/Input';
+import CustomMenu from '../../Containers/Boost/CustomMenu';
+import Dropdown from 'react-bootstrap/Dropdown';
+import CustomToggle from '../../Containers/Boost/CustomToggle';
+import {sizes} from '../../constants';
+import {randomId} from '../../utils';
 
 const pStyle ={
     fontSize: '25px',
@@ -48,6 +53,18 @@ const stats = (props) => {
                     value={props.activePlayer.NegativeLevels}
                     onChange={props.onNegativeLevelsChange}>
                 </Input>
+                    <Dropdown>
+                        <b>Size : </b>
+                        <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
+                        {props.activePlayer.size}
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu 
+                            as={CustomMenu}
+                            children = {sizes.map( (element) => {return <div id={randomId()}>{element}</div> } )}
+                            clicked={props.clickAddSize}
+                        >
+                        </Dropdown.Menu>
+                    </Dropdown>
             </div>
         </div>
 

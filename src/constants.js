@@ -197,4 +197,5 @@ export const initialState = [{
                               "size", "epic", "divine", "ability drain"];
   export const bonusesNames = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"];
   export const extrabonuses = ["attack", "damage", "grapple", "ac", "touch ac", "flatfooded ac"];
-  export const buffTypes = ["spell", "wizard", "druid", "bard", "condition", "armor", "Class ab.", "mode", "size", "negative Level"]
+  export const buffTypes = ["spell", "wizard", "druid", "bard", "condition", "armor", "Class ab.", "mode", "size", "negative Level"];
+  export const sizes = ["Fine", "Diminutive", "Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan", "Colossal"]

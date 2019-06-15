@@ -10,9 +10,9 @@
 	   totalDefence, flank, highGround,
 	   PowerAttack, ]
 
-PushBuffs()
-Push Negative Levels()
-Push Size()
+PushBuffs()               εδω προσμετράμε τα buffs που βρίσκονται στο core.js
+Push Negative Levels()    εδω προσμετράμε τα negative levels που βρίσκονται στον player
+Push Size()               εδω προσμετραμε το size
 Push Modes()
 UpdateStats()
 UpdateSaves()

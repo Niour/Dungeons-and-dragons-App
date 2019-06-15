@@ -60,10 +60,10 @@ class App extends Component {
     const elements = [...this.state.elements];
     this.resetStats();
     let BuffModification = [];
-    let testArray = null;
     // edw ftiaxnw ena Array boithitiko pou tha exei mazemena ta stats pou kerdizei o kathe paiktis
-    //this.pushBuffs(elements, BuffModification, testArray);
-    this.pushNegativeLevels(elements, BuffModification, testArray);
+    this.pushBuffs(elements, BuffModification);
+    this.pushNegativeLevels(elements, BuffModification);
+    this.pushsize(elements, BuffModification);
     console.log("BuffModification: ", BuffModification);
     let elementIndex = 0;
     bonusesTypes.forEach( e => {               // gia kathe Type  enchantment eg
@@ -97,7 +97,8 @@ class App extends Component {
   })
 }
 
-  pushBuffs = (elements, BuffModification, testArray) => {
+  pushBuffs = (elements, BuffModification) => {
+    let testArray = null; // isws mporei na bgei to test array, as to afisoume mipws ginei kamia allagi pio meta
     elements
     .forEach(player => {
       testArray = {playerId: player.id, values: []}; 
@@ -116,27 +117,67 @@ class App extends Component {
     });
   }
 
-  pushNegativeLevels = (elements, BuffModification, testArray) => {
+  pushNegativeLevels = (elements, BuffModification) => {
     elements
-    .forEach(player => {
-      testArray = {playerId: player.id, values: []}; 
-      player.buffs                        // gia kathe buff tou player
-        .map(bf => { return core          // gia kathe buff tou core
-          .find( coreBuff => { return coreBuff.values    // gia kathe value tou coreBuffs.values
-            .forEach ((oneValue) => {
-              if (coreBuff.name === bf.name) {
-                testArray.values.push({name: oneValue.name, type: oneValue.type, value: oneValue.value(bf.casterLvl)})
-              }
-            });
-          });
-        });
-      BuffModification.push(testArray);
-      testArray = null; 
-    });
+    .forEach(player => { // gia ton kathe paikti
+      if (player.NegativeLevels > 0) {
+        BuffModification[BuffModification
+            .findIndex( element => {return element.playerId === player.id})].values
+                .push(
+                  {name: "attack", type: "negative Level", value: player.NegativeLevels * (-1)},
+                  {name: "skill checks", type: "negative Level", value: player.NegativeLevels * (-1)},
+                  {name: "ability checks", type: "negative Level", value: player.NegativeLevels * (-1)},
+                  {name: "fort", type: "negative Level", value: player.NegativeLevels * (-1)},
+                  {name: "ref", type: "negative Level", value: player.NegativeLevels * (-1)},
+                  {name: "caster Lvl", type: "negative Level", value: player.NegativeLevels * (-1)},
+                  {name: "will", type: "negative Level", value: player.NegativeLevels * (-1)}
+                )
+            }});
   }
 
-
-
+  pushsize = (elements, BuffModification) => {
+    elements
+    .forEach(player => { // gia ton kathe paikti
+      let sizeModifier = null;
+      if (player.size !== "Medium") {
+        switch (player.size) {
+          case "Fine":
+            sizeModifier = {attackAndAc: 8, specialModifier: -16};
+            break;
+          case "Diminutive":
+            sizeModifier = {attackAndAc: 4, specialModifier: -12};
+            break;
+          case "Tiny":
+            sizeModifier = {attackAndAc: 2, specialModifier: -8};
+            break;
+          case "Small":
+            sizeModifier = {attackAndAc: 1, specialModifier: -4};
+            break;
+          case "Large":
+            sizeModifier = {attackAndAc: -1, specialModifier: 4};
+            break;
+          case "Huge":
+            sizeModifier = {attackAndAc: -2, specialModifier: 8};
+            break;
+          case "Gargantuan":
+            sizeModifier = {attackAndAc: -4, specialModifier: 12};
+            break;
+          case "Colossal":
+            sizeModifier = {attackAndAc: -8, specialModifier: 16};
+            break;
+          default:
+            sizeModifier = {attackAndAc: 0, specialModifier: 0};
+            break;
+        }
+        BuffModification[BuffModification
+            .findIndex( element => {return element.playerId === player.id})].values
+                .push(
+                  {name: "attack", type: "size", value: sizeModifier.attackAndAc},
+                  {name: "Ac", type: "size", value: sizeModifier.attackAndAc},
+                  {name: "grapple", type: "size", value: sizeModifier.specialModifier}
+                )
+            }});
+  }
 
   resetStats = () => {
     const elements = [...this.state.elements];
@@ -289,6 +330,23 @@ class App extends Component {
     });}
   }
 
+  updateSize = (event, id) => {
+    const elementIndex = this.state.elements.findIndex(el => {
+      return el.id === id
+    });
+    const element = {...this.state.elements[elementIndex]};
+    console.log(event.target.textContent);
+    if (event.target.textContent.length < 10) {
+      element.size = event.target.textContent;
+      const elements = [...this.state.elements];
+      elements[elementIndex] = element;
+      this.checkIfActivePlayer(element);
+      this.setState( {
+        elements: elements
+      });
+  }
+  };
+
   showBuffs = (id) => {
     const elementIndex = this.state.elements.findIndex(el => {
       return el.id === id
@@ -368,6 +426,7 @@ class App extends Component {
           <Stats 
               activePlayer= {activePlayer}
               onNegativeLevelsChange={(event) => this.updateNegativeLevels(event, activePlayer.id)}
+              clickAddSize={(event) => this.updateSize(event, activePlayer.id)}
           />
           <Buffs
             sortElementsWithLevel={() => this.sortActivePlayerWithLevels()}

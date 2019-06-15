@@ -39,8 +39,8 @@ class CustomMenu extends Component {
           />
           <ul className="list-unstyled" onClick={clicked}>
           { React.Children.toArray(children).filter(
-            child =>
-              !value || child.props.children.toLowerCase().startsWith(value),
+            child => 
+              !value || child.props.children.toLowerCase().startsWith(value)
           )}
           </ul>
         </div>
