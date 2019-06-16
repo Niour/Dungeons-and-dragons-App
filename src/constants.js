@@ -190,6 +190,30 @@ export const initialState = [{
     flatfoodedAc: 0,
   }];
 
+  export const upgrades = [
+    {
+    name: "Flank",
+    id: randomId(),
+    values: [{
+        name: "attack",
+        type: "untyped",
+        value: () =>  2
+    }]
+  }, {
+    name: "Fight Defensively",
+    id: randomId(),
+    values: [{
+        name: "attack",
+        type: "untyped",
+        value: () =>  -2
+    },{
+      name: "ac",
+      type: "untyped",
+      value: () =>  2
+    }]
+  },
+  ]
+
   export const bonusesTypes = ["enchancement", "racial","untyped", "circumstance", "alchemicalBonus", "dodge",
                               "armor bonus","enhancement armor bonus", "natural armor bonus", "enhancement natural armor bonus",
                               "shield bonus", "enhancement shield bonus",

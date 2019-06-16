@@ -9,8 +9,8 @@ import Layout from './Containers/Layout/Layout';
 import Buffs from './Components/Buffs/Buffs';
 import core from './core';
 
-let buffCasterLevel;
-let activePlayer = {
+let buffCasterLevel;    // This one also
+let activePlayer = {   // Maybe we should move this to our state, idk why i did this at first place
   id: randomId(),
   name: "Plz select a player",
   initiative: 20,
@@ -52,9 +52,8 @@ let activePlayer = {
 class App extends Component {
   state = {
     elements: initialState,
+    showExtras: true
   };
-
-  
 
   updateStats = () => {
     const elements = [...this.state.elements];
@@ -336,7 +335,7 @@ class App extends Component {
     });
     const element = {...this.state.elements[elementIndex]};
     console.log(event.target.textContent);
-    if (event.target.textContent.length < 10) {
+    if (event.target.textContent.length < 11) {
       element.size = event.target.textContent;
       const elements = [...this.state.elements];
       elements[elementIndex] = element;
@@ -394,9 +393,14 @@ class App extends Component {
     activePlayer.buffs.sort((l, r) => r.casterLvl - l.casterLvl);
     this.forceUpdate();
   }
-
-
   //checkifActive player changes so that Stats and buffs to refresh
+
+  showExtrasHandler = () => {
+    console.log("inside showExtrasHandler");
+    this.setState( {
+      showExtras: !this.state.showExtras
+    })
+  }
 
   render() {
     return (
@@ -427,6 +431,8 @@ class App extends Component {
               activePlayer= {activePlayer}
               onNegativeLevelsChange={(event) => this.updateNegativeLevels(event, activePlayer.id)}
               clickAddSize={(event) => this.updateSize(event, activePlayer.id)}
+              clickShowExtras= {(event) => this.showExtrasHandler(event)}
+              showExtras= {this.state.showExtras}
           />
           <Buffs
             sortElementsWithLevel={() => this.sortActivePlayerWithLevels()}

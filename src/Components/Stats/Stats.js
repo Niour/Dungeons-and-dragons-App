@@ -7,11 +7,11 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import CustomToggle from '../../Containers/Boost/CustomToggle';
 import {sizes} from '../../constants';
 import {randomId} from '../../utils';
+import Checkbox from '../../Containers/Checkbox/Checkbox';
 
 const pStyle ={
     fontSize: '25px',
 }
-
 
 const itemStyle = {
     display: "flex",
@@ -20,6 +20,10 @@ const itemStyle = {
 
 const margin = {
     marginLeft: 40,
+}
+
+const marginBottom = {
+    marginBottom: 2,
 }
 
 const stats = (props) => {
@@ -46,6 +50,11 @@ const stats = (props) => {
                         <p><b>Ref : </b>{props.activePlayer.ref}</p>
                         <p><b>Will : </b>{props.activePlayer.will}</p>
                     </div>
+                    <div style={margin}>
+                        <p><b>Bab : </b>{props.activePlayer.Bab}</p>
+                        <p><b>Attack : </b>{props.activePlayer.attackRoll}</p>
+                    </div>
+                    
                 </div>
                 <Input 
                     label="Negative Levels: "
@@ -53,7 +62,19 @@ const stats = (props) => {
                     value={props.activePlayer.NegativeLevels}
                     onChange={props.onNegativeLevelsChange}>
                 </Input>
-                    <Dropdown>
+                    <div style={itemStyle}>
+                        <div>
+                            <button onClick={props.clickShowExtras}> Extras </button>
+                            {props.showExtras ? 
+                            <div>
+                            <p style={marginBottom}><Checkbox label={"Flank : "} checked={true} clicked={ () => console.log("clicked!")}></Checkbox>  </p>
+                            <p style={marginBottom}><b>Test</b></p>
+                            <p style={marginBottom}><b>Test</b></p>
+                            <p style={marginBottom}><b>Test</b></p>
+                            </div>
+                            : null}
+                        </div>
+                    <Dropdown style={margin}>
                         <b>Size : </b>
                         <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                         {props.activePlayer.size}
@@ -65,6 +86,7 @@ const stats = (props) => {
                         >
                         </Dropdown.Menu>
                     </Dropdown>
+                    </div>
             </div>
         </div>
 
