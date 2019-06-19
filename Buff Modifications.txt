@@ -14,7 +14,7 @@ PushBuffs()               εδω προσμετράμε τα buffs που βρί
 Push Negative Levels()    εδω προσμετράμε τα negative levels που βρίσκονται στον player
 Push Size()               εδω προσμετραμε το size
 Push Modes()
-UpdateStats()
-UpdateSaves()
+UpdateStats()             εδω υπολογίζουμε τα Stats
+UpdateSaves()             εδω υπολογίζουμε τα Saves
 UpdateAC()
 UpdateAttack()

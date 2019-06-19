@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Card from './Components/Card/Card';
 import {randomId} from './utils';
-import {initialState, bonusesTypes, bonusesNames } from './constants';
+import {initialState, bonusesTypes, bonusesNames , savesNames } from './constants';
 import Stats from './Components/Stats/Stats';
 import Layout from './Containers/Layout/Layout';
 import Buffs from './Components/Buffs/Buffs';
@@ -65,6 +65,16 @@ class App extends Component {
     this.pushNegativeLevels(elements, BuffModification);
     this.pushsize(elements, BuffModification);
     console.log("BuffModification: ", BuffModification);
+    this.updateStatss(elements, BuffModification);
+    this.statsToSaves(elements, BuffModification);
+    this.upadateSaves(elements, BuffModification);
+    this.setState( {
+      elements: elements
+    })   
+    this.forceUpdate();
+}
+
+  updateStatss = (elements, BuffModification) => {
     let elementIndex = 0;
     bonusesTypes.forEach( e => {               // gia kathe Type  enchantment eg
       bonusesNames.forEach ( el => {           // gia kathe stat
@@ -75,27 +85,69 @@ class App extends Component {
               if ( elem.name === el && elem.type === e ) {
                 if ( e !== "circumstance" && e !=="untyped" && e !== "dodge" && elem.value > i) {
                   i = elem.value;
-                  elementIndex = elements.findIndex(eleme => {
-                    return eleme.id === ele.playerId
-                  });
-                  elements[elementIndex][el] = elements[elementIndex][el] + i;
+
               } else if ( e === "circumstance" || e === "untyped" || e=== "dodge") {
                 k = k + elem.value;
                 elementIndex = elements.findIndex(eleme => {
                   return eleme.id === ele.playerId
                 });
-                elements[elementIndex][el] = elements[elementIndex][el] + k;
+              } 
+          }
+        });
+        elementIndex = elements.findIndex(eleme => {
+          return eleme.id === ele.playerId
+        });
+        elements[elementIndex][el] = elements[elementIndex][el] + i;
+        elements[elementIndex][el] = elements[elementIndex][el] + k;
+      })
+    })
+  })
+  }
+
+  upadateSaves = (elements, BuffModification) => {
+    let elementIndex = 0;
+    bonusesTypes.forEach( e => {               // gia kathe Type  enchantment eg
+      savesNames.forEach ( el => {           // gia kathe save
+        BuffModification.forEach ( ele => {    // gia kathe paikth
+          let i = 0;
+          let k = 0;
+          ele.values.forEach( elem => {
+              if ( elem.name === el && elem.type === e ) {
+                if ( e !== "circumstance" && e !=="untyped" && e !== "dodge" && elem.value > i) {
+                  i = elem.value;
+              } else if ( e === "circumstance" || e === "untyped" || e=== "dodge") {
+                k = k + elem.value;
+                elementIndex = elements.findIndex(eleme => {
+                  return eleme.id === ele.playerId
+                });
               } 
           }
         })
+        elementIndex = elements.findIndex(eleme => {
+          return eleme.id === ele.playerId
+        });
+        elements[elementIndex][el] = elements[elementIndex][el] + i;
+        elements[elementIndex][el] = elements[elementIndex][el] + k;
       })
     })
-    this.setState( {
-      elements: elements
-    })   
-    this.forceUpdate();
   })
-}
+  }
+
+  statsToSaves = (elements, BuffModification) => {
+    let elementIndex = 0;
+    elements
+    .forEach(player => {
+      elementIndex = BuffModification.findIndex(element => {
+        return element.playerId === player.id
+      });
+      BuffModification[elementIndex].values.push({name: "fort", type: "ability modifier", value: Math.floor((player.constitution -10) / 2)});
+      BuffModification[elementIndex].values.push({name: "ref", type: "ability modifier", value: Math.floor((player.dexterity -10) / 2)});
+      BuffModification[elementIndex].values.push({name: "will", type: "ability modifier", value: Math.floor((player.wisdom -10) / 2)});
+      BuffModification[elementIndex].values.push({name: "fort", type: "untyped", value: Math.floor(player.baseFort)});
+      BuffModification[elementIndex].values.push({name: "ref", type: "untyped", value: Math.floor(player.baseRef)});
+      BuffModification[elementIndex].values.push({name: "will", type: "untyped", value: Math.floor(player.baseWill)});
+    });
+  }
 
   pushBuffs = (elements, BuffModification) => {
     let testArray = null; // isws mporei na bgei to test array, as to afisoume mipws ginei kamia allagi pio meta
@@ -124,13 +176,13 @@ class App extends Component {
         BuffModification[BuffModification
             .findIndex( element => {return element.playerId === player.id})].values
                 .push(
-                  {name: "attack", type: "negative Level", value: player.NegativeLevels * (-1)},
-                  {name: "skill checks", type: "negative Level", value: player.NegativeLevels * (-1)},
-                  {name: "ability checks", type: "negative Level", value: player.NegativeLevels * (-1)},
-                  {name: "fort", type: "negative Level", value: player.NegativeLevels * (-1)},
-                  {name: "ref", type: "negative Level", value: player.NegativeLevels * (-1)},
-                  {name: "caster Lvl", type: "negative Level", value: player.NegativeLevels * (-1)},
-                  {name: "will", type: "negative Level", value: player.NegativeLevels * (-1)}
+                  {name: "attack", type: "untyped", value: player.NegativeLevels * (-1)},
+                  {name: "skill checks", type: "untyped", value: player.NegativeLevels * (-1)},
+                  {name: "ability checks", type: "untyped", value: player.NegativeLevels * (-1)},
+                  {name: "fort", type: "untyped", value: player.NegativeLevels * (-1)},
+                  {name: "ref", type: "untyped", value: player.NegativeLevels * (-1)},
+                  {name: "caster Lvl", type: "untyped", value: player.NegativeLevels * (-1)},
+                  {name: "will", type: "untyped", value: player.NegativeLevels * (-1)}
                 )
             }});
   }
@@ -188,9 +240,9 @@ class App extends Component {
       e.intelligence = e.baseIntelligence;
       e.wisdom = e.baseWisdom;
       e.charisma = e.baseCharisma;
-      e.fort = e.baseFort;
-      e.ref = e.baseRef;
-      e.will = e.baseWill;
+      e.fort = 0;
+      e.ref = 0;
+      e.will = 0;
     })
     this.setState( {
       elements: elements

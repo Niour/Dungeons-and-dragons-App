@@ -60,7 +60,8 @@ const core = [{
         type: "enchancement",
         value: () =>  4
     }]    
-}, {name: "Transformation",
+}, {
+    name: "Transformation",
     id: randomId(),
     Duration: "1 round/level",
     type: "spell",
@@ -79,25 +80,26 @@ const core = [{
         type: "enchancement",
         value: () =>  4
     }]
-}, {name: "Test Lesser Transformation",
+}, {
+    name: "Test Lesser Transformation",
     id: randomId(),
-Duration: "1 round/level",
-type: "Druid",
-level: 4,
-class: "cleric",
-values: [{
-    name: "strength",
-    type: "enchancement",
-    value: () =>  2
-}, {
-    name: "dexterity",
-    type: "enchancement",
-    value: () =>  2
-}, {
-    name: "constitution",
-    type: "enchancement",
-    value: () =>  2
-}]
+    Duration: "1 round/level",
+    type: "spell",
+    level: 4,
+    class: "cleric",
+    values: [{
+        name: "strength",
+        type: "enchancement",
+        value: () =>  2
+    }, {
+        name: "dexterity",
+        type: "enchancement",
+        value: () =>  2
+    }, {
+        name: "constitution",
+        type: "enchancement",
+        value: () =>  2
+    }]
 }, {
     name: "Fatigue",
     id: randomId(),
@@ -113,6 +115,44 @@ values: [{
         type: "untyped",
         value: () => -2
     }]    
+}, {
+    name: "Resistance",
+    id: randomId(),
+    Duration: "1 min./level",
+    type: "spell",
+    level: 0,
+    values: [{
+        name: "fort",
+        type: "enchancement",
+        value: () => 1
+    },{
+        name: "ref",
+        type: "enchancement",
+        value: () => 1
+    },{
+        name: "will",
+        type: "enchancement",
+        value: () => 1
+    }]
+}, {
+    name: "Resistance (Pal1)",
+    id: randomId(),
+    Duration: "1 min./level",
+    type: "spell",
+    level: 1,
+    values: [{
+        name: "fort",
+        type: "enchancement",
+        value: () => 1
+    },{
+        name: "ref",
+        type: "enchancement",
+        value: () => 1
+    },{
+        name: "will",
+        type: "enchancement",
+        value: () => 1
+    }]
 }];
 
 export default core;
