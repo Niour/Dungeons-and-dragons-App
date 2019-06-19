@@ -199,4 +199,23 @@ export const initialState = [{
   export const extrabonuses = ["attack", "damage", "grapple", "ac", "touch ac", "flatfooded ac"];
   export const buffTypes = ["spell", "wizard", "druid", "bard", "condition", "armor", "Class ab.", "mode", "size", "negative Level"];
   export const sizes = ["Fine", "Diminutive", "Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan", "Colossal"];
-  export const savesNames = ["fort", "ref", "will"]
+  export const savesNames = ["fort", "ref", "will"];
+  export const bonusesTypesForTouchAc = ["enchancement", "racial","untyped", "circumstance", "alchemicalBonus", "dodge",
+                              "competence", "deflection", "insight", "luck", "morale", "profane", "reistance", "sacred",
+                              "size", "epic", "divine", "ability drain", "ability modifier" ];
+
+  export const Modes = [
+    {
+      name: "Monks Wisdom to Ac",
+      id: randomId(),
+      Duration: "Perma",
+      type: "Class ab.",
+      level: 99,
+      specialCondition: "wisdom",
+      values: [{
+          name: "ac",
+          type: "untyped",
+          value: (special) => Math.floor((special - 10 / 2 ))
+      }]    
+  },
+  ];

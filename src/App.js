@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Card from './Components/Card/Card';
 import {randomId} from './utils';
-import {initialState, bonusesTypes, bonusesNames , savesNames } from './constants';
+import {initialState, bonusesTypes, bonusesNames , savesNames, bonusesTypesForTouchAc } from './constants';
 import Stats from './Components/Stats/Stats';
 import Layout from './Containers/Layout/Layout';
 import Buffs from './Components/Buffs/Buffs';
@@ -69,6 +69,7 @@ class App extends Component {
     this.statsToSaves(elements, BuffModification);
     this.upadateSaves(elements, BuffModification);
     this.statsToAc(elements, BuffModification);
+    this.upadateTouchAc(elements, BuffModification);
     this.upadateAc(elements, BuffModification);
     this.setState( {
       elements: elements
@@ -162,6 +163,34 @@ class App extends Component {
     });
   }
 
+  upadateTouchAc = (elements, BuffModification) => {
+    let elementIndex = 0;
+    bonusesTypesForTouchAc.forEach( e => {               // gia kathe Type  enchantment eg
+      let el = "ac";
+        BuffModification.forEach ( ele => {    // gia kathe paikth
+          let i = 0;
+          let k = 0;
+          ele.values.forEach( elem => {
+              if ( elem.name === el && elem.type === e ) {
+                if ( e !== "circumstance" && e !=="untyped" && e !== "dodge" && elem.value > i) {
+                  i = elem.value;
+              } else if ( e === "circumstance" || e === "untyped" || e=== "dodge") {
+                k = k + elem.value;
+                elementIndex = elements.findIndex(eleme => {
+                  return eleme.id === ele.playerId
+                });
+              } 
+          }
+        })
+        elementIndex = elements.findIndex(eleme => {
+          return eleme.id === ele.playerId
+        });
+        elements[elementIndex].touchAcL = elements[elementIndex][el] + i;
+        elements[elementIndex].touchAcL = elements[elementIndex][el] + k;
+      })
+  })
+  }
+
 
   upadateAc = (elements, BuffModification) => {
     let elementIndex = 0;
@@ -174,7 +203,7 @@ class App extends Component {
               if ( elem.name === el && elem.type === e ) {
                 if ( e !== "circumstance" && e !=="untyped" && e !== "dodge" && elem.value > i) {
                   i = elem.value;
-              } else if ( e === "circumstance" || e === "untyped" || e=== "dodge") {
+              } else if ( e === "circumstance" || e === "untyped" || e=== "dodge" ) {
                 k = k + elem.value;
                 elementIndex = elements.findIndex(eleme => {
                   return eleme.id === ele.playerId
@@ -266,9 +295,9 @@ class App extends Component {
         BuffModification[BuffModification
             .findIndex( element => {return element.playerId === player.id})].values
                 .push(
-                  {name: "attack", type: "size", value: sizeModifier.attackAndAc},
-                  {name: "Ac", type: "size", value: sizeModifier.attackAndAc},
-                  {name: "grapple", type: "size", value: sizeModifier.specialModifier}
+                  {name: "attack", type: "untyped", value: sizeModifier.attackAndAc},
+                  {name: "ac", type: "untyped", value: sizeModifier.attackAndAc},
+                  {name: "grapple", type: "untyped", value: sizeModifier.specialModifier}
                 )
             }});
   }
@@ -409,9 +438,11 @@ class App extends Component {
     });
     const player = {...this.state.elements[playerIndex]};
     console.log(buffIndex);
+    let temp = buffCasterLevel;
     if (buffIndex !== -1) {  // this is a fix for an issue if buff was not clicked right at the text
-    player.buffs.push(  Object({name: core[buffIndex].name,
-      casterLvl: buffCasterLevel,
+    player.buffs.push(  Object({
+      name: core[buffIndex].name,
+      casterLvl: temp,
       type: core[buffIndex].type,
       class: core[buffIndex].class,
       duration: core[buffIndex].Duration,

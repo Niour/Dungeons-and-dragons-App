@@ -13,10 +13,11 @@
 PushBuffs()               εδω προσμετράμε τα buffs που βρίσκονται στο core.js
 Push Negative Levels()    εδω προσμετράμε τα negative levels που βρίσκονται στον player
 Push Size()               εδω προσμετραμε το size
-Push Modes()
+Push Modes()                
 UpdateStats()             εδω υπολογίζουμε τα Stats
+pushSpecialAbilities/Conditions that depend from multiple Stats()
 UpdateSaves()             εδω υπολογίζουμε τα Saves
-UpdateAC()                εδώ υπολογίζουμε το Ac need to do touch ac
+UpdateAC()                εδώ υπολογίζουμε το Ac kai to touchAc
 UpdateAttack()
 
 What to do with abilities like Monks Wisdom to AC?
