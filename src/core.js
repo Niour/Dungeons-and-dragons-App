@@ -153,6 +153,18 @@ const core = [{
         type: "enchancement",
         value: () => 1
     }]
+}, {
+    name: "Shield of Faith",
+    id: randomId(),
+    Duration: "1 min./level",
+    type: "spell",
+    level: 1,
+    class: "cleric",
+    values: [{
+        name: "ac",
+        type: "deflection",
+        value: (casterLvl) => Math.min(2 + Math.floor(casterLvl / 6), 5)
+    }]    
 }];
 
 export default core;

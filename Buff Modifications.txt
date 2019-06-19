@@ -16,5 +16,9 @@ Push Size()               εδω προσμετραμε το size
 Push Modes()
 UpdateStats()             εδω υπολογίζουμε τα Stats
 UpdateSaves()             εδω υπολογίζουμε τα Saves
-UpdateAC()
+UpdateAC()                εδώ υπολογίζουμε το Ac need to do touch ac
 UpdateAttack()
+
+What to do with abilities like Monks Wisdom to AC?
+FinalAbilities that depends from other stats like Wisdom
+const = [Monk wisdom to AC, Intelligence to Ac]

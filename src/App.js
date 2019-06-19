@@ -68,6 +68,8 @@ class App extends Component {
     this.updateStatss(elements, BuffModification);
     this.statsToSaves(elements, BuffModification);
     this.upadateSaves(elements, BuffModification);
+    this.statsToAc(elements, BuffModification);
+    this.upadateAc(elements, BuffModification);
     this.setState( {
       elements: elements
     })   
@@ -147,6 +149,46 @@ class App extends Component {
       BuffModification[elementIndex].values.push({name: "ref", type: "untyped", value: Math.floor(player.baseRef)});
       BuffModification[elementIndex].values.push({name: "will", type: "untyped", value: Math.floor(player.baseWill)});
     });
+  }
+
+  statsToAc = (elements, BuffModification) => {
+    let elementIndex = 0;
+    elements
+    .forEach(player => {
+      elementIndex = BuffModification.findIndex(element => {
+        return element.playerId === player.id
+      });
+      BuffModification[elementIndex].values.push({name: "ac", type: "ability modifier", value: Math.floor((player.dexterity -10) / 2)});
+    });
+  }
+
+
+  upadateAc = (elements, BuffModification) => {
+    let elementIndex = 0;
+    bonusesTypes.forEach( e => {               // gia kathe Type  enchantment eg
+      let el = "ac";
+        BuffModification.forEach ( ele => {    // gia kathe paikth
+          let i = 0;
+          let k = 0;
+          ele.values.forEach( elem => {
+              if ( elem.name === el && elem.type === e ) {
+                if ( e !== "circumstance" && e !=="untyped" && e !== "dodge" && elem.value > i) {
+                  i = elem.value;
+              } else if ( e === "circumstance" || e === "untyped" || e=== "dodge") {
+                k = k + elem.value;
+                elementIndex = elements.findIndex(eleme => {
+                  return eleme.id === ele.playerId
+                });
+              } 
+          }
+        })
+        elementIndex = elements.findIndex(eleme => {
+          return eleme.id === ele.playerId
+        });
+        elements[elementIndex][el] = elements[elementIndex][el] + i;
+        elements[elementIndex][el] = elements[elementIndex][el] + k;
+      })
+  })
   }
 
   pushBuffs = (elements, BuffModification) => {
@@ -243,6 +285,7 @@ class App extends Component {
       e.fort = 0;
       e.ref = 0;
       e.will = 0;
+      e.ac=10;
     })
     this.setState( {
       elements: elements
