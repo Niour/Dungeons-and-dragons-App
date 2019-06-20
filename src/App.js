@@ -9,46 +9,6 @@ import Layout from './Containers/Layout/Layout';
 import Buffs from './Components/Buffs/Buffs';
 import core from './core';
 
-let buffCasterLevel;
-/*let activePlayer = {
-  id: randomId(),
-  name: "Plz select a player",
-  initiative: 20,
-  hitpoints: 100,
-  active: true,
-  strength: 10,
-  dexterity: 10,
-  constitution: 10,
-  intelligence: 10,
-  wisdom: 10,
-  charisma: 10,
-  buffs: [],
-  baseStrength: 10,
-  baseDexterity: 10,
-  baseConstitution: 10,
-  baseIntelligence: 10,
-  baseWisdom: 10,
-  baseCharisma: 10,
-  upgrades: [],
-  fort: 0,
-  ref: 0,
-  will: 0,
-  baseFort: 0,
-  baseRef: 0,
-  baseWill: 0,
-  attackRoll: 0,
-  Bab: 0,
-  baseAttackBab: 0,
-  size: "Medium",
-  NegativeLevels: 1,
-  damage: 0,
-  grapple: 0,
-  ac: 0,
-  baseAc: 10,
-  touchAcL: 0,
-  flatfoodedAc: 0,
-}; */
-
 class App extends Component {
   state = {
     elements: initialState,
@@ -90,6 +50,7 @@ class App extends Component {
       touchAcL: 0,
       flatfoodedAc: 0,
     },
+    buffCasterLevel: 0,
   };
 
   
@@ -464,7 +425,8 @@ class App extends Component {
   }
 
   updateBuffCasterLevel = (event) => {
-    buffCasterLevel = Number(event.target.value);
+    this.setState({
+    buffCasterLevel: Number(event.target.value)});
   }
 
   addElementBuff = (event, id) => {
@@ -476,7 +438,7 @@ class App extends Component {
     });
     const player = {...this.state.elements[playerIndex]};
     console.log(buffIndex);
-    let temp = buffCasterLevel;
+    let temp = this.state.buffCasterLevel;
     if (buffIndex !== -1) {  // this is a fix for an issue if buff was not clicked right at the text
     player.buffs.push(  Object({
       name: core[buffIndex].name,
@@ -559,9 +521,6 @@ class App extends Component {
     element.buffs.sort((l, r) => r.casterLvl - l.casterLvl);
     this.setState({activePlayer: element});
   }
-
-
-  //checkifActive player changes so that Stats and buffs to refresh
 
   render() {
     return (
