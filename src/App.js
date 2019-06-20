@@ -10,7 +10,7 @@ import Buffs from './Components/Buffs/Buffs';
 import core from './core';
 
 let buffCasterLevel;
-let activePlayer = {
+/*let activePlayer = {
   id: randomId(),
   name: "Plz select a player",
   initiative: 20,
@@ -47,11 +47,49 @@ let activePlayer = {
   baseAc: 10,
   touchAcL: 0,
   flatfoodedAc: 0,
-};
+}; */
 
 class App extends Component {
   state = {
     elements: initialState,
+    activePlayer: {
+      id: randomId(),
+      name: "Plz select a player",
+      initiative: 20,
+      hitpoints: 100,
+      active: true,
+      strength: 10,
+      dexterity: 10,
+      constitution: 10,
+      intelligence: 10,
+      wisdom: 10,
+      charisma: 10,
+      buffs: [],
+      baseStrength: 10,
+      baseDexterity: 10,
+      baseConstitution: 10,
+      baseIntelligence: 10,
+      baseWisdom: 10,
+      baseCharisma: 10,
+      upgrades: [],
+      fort: 0,
+      ref: 0,
+      will: 0,
+      baseFort: 0,
+      baseRef: 0,
+      baseWill: 0,
+      attackRoll: 0,
+      Bab: 0,
+      baseAttackBab: 0,
+      size: "Medium",
+      NegativeLevels: 1,
+      damage: 0,
+      grapple: 0,
+      ac: 0,
+      baseAc: 10,
+      touchAcL: 0,
+      flatfoodedAc: 0,
+    },
   };
 
   
@@ -490,9 +528,9 @@ class App extends Component {
     element.active = true;      // this has to be fail practice
     const elements = [...this.state.elements];
     elements[elementIndex] = element;
-    activePlayer = element;
     this.setState({
-      elements: elements
+      elements: elements,
+      activePlayer: element,
     })
   }
 
@@ -511,14 +549,15 @@ class App extends Component {
   }
 
   checkIfActivePlayer = (element) => {
-      if (element.id === activePlayer.id) {
-        activePlayer = element;
+      if (element.id === this.state.activePlayer.id) {
+        this.setState( {activePlayer: element})
       }
   }
 
   sortActivePlayerWithLevels = () => {
-    activePlayer.buffs.sort((l, r) => r.casterLvl - l.casterLvl);
-    this.forceUpdate();
+    let element = this.state.activePlayer;
+    element.buffs.sort((l, r) => r.casterLvl - l.casterLvl);
+    this.setState({activePlayer: element});
   }
 
 
@@ -550,16 +589,16 @@ class App extends Component {
             )} 
           </div>
           <Stats 
-              activePlayer= {activePlayer}
-              onNegativeLevelsChange={(event) => this.updateNegativeLevels(event, activePlayer.id)}
-              clickAddSize={(event) => this.updateSize(event, activePlayer.id)}
+              activePlayer= {this.state.activePlayer}
+              onNegativeLevelsChange={(event) => this.updateNegativeLevels(event, this.state.activePlayer.id)}
+              clickAddSize={(event) => this.updateSize(event, this.state.activePlayer.id)}
           />
           <Buffs
             sortElementsWithLevel={() => this.sortActivePlayerWithLevels()}
             name="caster Level"
-            activePlayer= {activePlayer}
-            clickBuff={(event) => this.removeElementBuff(event, activePlayer.id)}
-            clickAddBuff={(event) => this.addElementBuff(event, activePlayer.id)}
+            activePlayer= {this.state.activePlayer}
+            clickBuff={(event) => this.removeElementBuff(event, this.state.activePlayer.id)}
+            clickAddBuff={(event) => this.addElementBuff(event, this.state.activePlayer.id)}
             updateBuffCasterLevel={(event) => this.updateBuffCasterLevel(event)}
           />
       </Layout>
