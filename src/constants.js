@@ -211,6 +211,18 @@ export const initialState = [{
       type: "untyped",
       value: () =>  2
     }]
+  }, {
+    name: "Fight Defensively (3)",
+    id: randomId(),
+    values: [{
+        name: "attack",
+        type: "untyped",
+        value: () =>  -2
+    },{
+      name: "ac",
+      type: "untyped",
+      value: () =>  3
+    }]
   },
   ]
 
