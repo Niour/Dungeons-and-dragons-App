@@ -551,14 +551,6 @@ class App extends Component {
               clickStats={() => this.activePlayerProp(element.id)}
             />
             )} 
-          </div>
-          <Stats 
-              activePlayer= {activePlayer}
-              onNegativeLevelsChange={(event) => this.updateNegativeLevels(event, activePlayer.id)}
-              clickAddSize={(event) => this.updateSize(event, activePlayer.id)}
-              clickShowExtras= {(event) => this.showExtrasHandler(event)}
-              showExtras= {this.state.showExtras}
-          />
           <Buffs
             sortElementsWithLevel={() => this.sortActivePlayerWithLevels()}
             name="caster Level"
@@ -567,6 +559,15 @@ class App extends Component {
             clickAddBuff={(event) => this.addElementBuff(event, this.state.activePlayer.id)}
             updateBuffCasterLevel={(event) => this.updateBuffCasterLevel(event)}
           />
+          </div>
+          <Stats 
+              activePlayer= {this.state.activePlayer}
+              onNegativeLevelsChange={(event) => this.updateNegativeLevels(event, this.state.activePlayer.id)}
+              clickAddSize={(event) => this.updateSize(event, this.state.activePlayer.id)}
+              clickShowExtras= {(event) => this.showExtrasHandler(event)}
+              showExtras= {this.state.showExtras}
+          />
+
       </Layout>
     );
   }
