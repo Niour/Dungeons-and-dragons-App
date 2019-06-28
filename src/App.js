@@ -3,56 +3,54 @@ import React, { Component } from 'react';
 import './App.css';
 import Card from './Components/Card/Card';
 import {randomId} from './utils';
-import {initialState, bonusesTypes, bonusesNames } from './constants';
+import {initialState, bonusesTypes, bonusesNames , savesNames, bonusesTypesForTouchAc } from './constants';
 import Stats from './Components/Stats/Stats';
 import Layout from './Containers/Layout/Layout';
 import Buffs from './Components/Buffs/Buffs';
 import core from './core';
 
-let buffCasterLevel;    // This one also
-let activePlayer = {   // Maybe we should move this to our state, idk why i did this at first place
-  id: randomId(),
-  name: "Plz select a player",
-  initiative: 20,
-  hitpoints: 100,
-  active: true,
-  strength: 10,
-  dexterity: 10,
-  constitution: 10,
-  intelligence: 10,
-  wisdom: 10,
-  charisma: 10,
-  buffs: [],
-  baseStrength: 10,
-  baseDexterity: 10,
-  baseConstitution: 10,
-  baseIntelligence: 10,
-  baseWisdom: 10,
-  baseCharisma: 10,
-  upgrades: [],
-  fort: 0,
-  ref: 0,
-  will: 0,
-  baseFort: 0,
-  baseRef: 0,
-  baseWill: 0,
-  attackRoll: 0,
-  Bab: 0,
-  baseAttackBab: 0,
-  size: "Medium",
-  NegativeLevels: 1,
-  damage: 0,
-  grapple: 0,
-  ac: 0,
-  baseAc: 10,
-  touchAcL: 0,
-  flatfoodedAc: 0,
-};
-
 class App extends Component {
   state = {
     elements: initialState,
-    showExtras: true
+    activePlayer: {
+      id: randomId(),
+      name: "Plz select a player",
+      initiative: 20,
+      hitpoints: 100,
+      active: true,
+      strength: 10,
+      dexterity: 10,
+      constitution: 10,
+      intelligence: 10,
+      wisdom: 10,
+      charisma: 10,
+      buffs: [],
+      baseStrength: 10,
+      baseDexterity: 10,
+      baseConstitution: 10,
+      baseIntelligence: 10,
+      baseWisdom: 10,
+      baseCharisma: 10,
+      upgrades: [],
+      fort: 0,
+      ref: 0,
+      will: 0,
+      baseFort: 0,
+      baseRef: 0,
+      baseWill: 0,
+      attackRoll: 0,
+      Bab: 0,
+      baseAttackBab: 0,
+      size: "Medium",
+      NegativeLevels: 1,
+      damage: 0,
+      grapple: 0,
+      ac: 0,
+      baseAc: 10,
+      touchAcL: 0,
+      flatfoodedAc: 0,
+    },
+    buffCasterLevel: 0,
   };
 
   updateStats = () => {
@@ -64,6 +62,19 @@ class App extends Component {
     this.pushNegativeLevels(elements, BuffModification);
     this.pushsize(elements, BuffModification);
     console.log("BuffModification: ", BuffModification);
+    this.updateStatss(elements, BuffModification);
+    this.statsToSaves(elements, BuffModification);
+    this.upadateSaves(elements, BuffModification);
+    this.statsToAc(elements, BuffModification);
+    this.upadateTouchAc(elements, BuffModification);
+    this.upadateAc(elements, BuffModification);
+    this.setState( {
+      elements: elements
+    })   
+    this.forceUpdate();
+}
+
+  updateStatss = (elements, BuffModification) => {
     let elementIndex = 0;
     bonusesTypes.forEach( e => {               // gia kathe Type  enchantment eg
       bonusesNames.forEach ( el => {           // gia kathe stat
@@ -74,27 +85,137 @@ class App extends Component {
               if ( elem.name === el && elem.type === e ) {
                 if ( e !== "circumstance" && e !=="untyped" && e !== "dodge" && elem.value > i) {
                   i = elem.value;
-                  elementIndex = elements.findIndex(eleme => {
-                    return eleme.id === ele.playerId
-                  });
-                  elements[elementIndex][el] = elements[elementIndex][el] + i;
+
               } else if ( e === "circumstance" || e === "untyped" || e=== "dodge") {
                 k = k + elem.value;
                 elementIndex = elements.findIndex(eleme => {
                   return eleme.id === ele.playerId
                 });
-                elements[elementIndex][el] = elements[elementIndex][el] + k;
+              } 
+          }
+        });
+        elementIndex = elements.findIndex(eleme => {
+          return eleme.id === ele.playerId
+        });
+        elements[elementIndex][el] = elements[elementIndex][el] + i;
+        elements[elementIndex][el] = elements[elementIndex][el] + k;
+      })
+    })
+  })
+  }
+
+  upadateSaves = (elements, BuffModification) => {
+    let elementIndex = 0;
+    bonusesTypes.forEach( e => {               // gia kathe Type  enchantment eg
+      savesNames.forEach ( el => {           // gia kathe save
+        BuffModification.forEach ( ele => {    // gia kathe paikth
+          let i = 0;
+          let k = 0;
+          ele.values.forEach( elem => {
+              if ( elem.name === el && elem.type === e ) {
+                if ( e !== "circumstance" && e !=="untyped" && e !== "dodge" && elem.value > i) {
+                  i = elem.value;
+              } else if ( e === "circumstance" || e === "untyped" || e=== "dodge") {
+                k = k + elem.value;
+                elementIndex = elements.findIndex(eleme => {
+                  return eleme.id === ele.playerId
+                });
               } 
           }
         })
+        elementIndex = elements.findIndex(eleme => {
+          return eleme.id === ele.playerId
+        });
+        elements[elementIndex][el] = elements[elementIndex][el] + i;
+        elements[elementIndex][el] = elements[elementIndex][el] + k;
       })
     })
-    this.setState( {
-      elements: elements
-    })   
-    this.forceUpdate();
   })
-}
+  }
+
+  statsToSaves = (elements, BuffModification) => {
+    let elementIndex = 0;
+    elements
+    .forEach(player => {
+      elementIndex = BuffModification.findIndex(element => {
+        return element.playerId === player.id
+      });
+      BuffModification[elementIndex].values.push({name: "fort", type: "ability modifier", value: Math.floor((player.constitution -10) / 2)});
+      BuffModification[elementIndex].values.push({name: "ref", type: "ability modifier", value: Math.floor((player.dexterity -10) / 2)});
+      BuffModification[elementIndex].values.push({name: "will", type: "ability modifier", value: Math.floor((player.wisdom -10) / 2)});
+      BuffModification[elementIndex].values.push({name: "fort", type: "untyped", value: Math.floor(player.baseFort)});
+      BuffModification[elementIndex].values.push({name: "ref", type: "untyped", value: Math.floor(player.baseRef)});
+      BuffModification[elementIndex].values.push({name: "will", type: "untyped", value: Math.floor(player.baseWill)});
+    });
+  }
+
+  statsToAc = (elements, BuffModification) => {
+    let elementIndex = 0;
+    elements
+    .forEach(player => {
+      elementIndex = BuffModification.findIndex(element => {
+        return element.playerId === player.id
+      });
+      BuffModification[elementIndex].values.push({name: "ac", type: "ability modifier", value: Math.floor((player.dexterity -10) / 2)});
+    });
+  }
+
+  upadateTouchAc = (elements, BuffModification) => {
+    let elementIndex = 0;
+    bonusesTypesForTouchAc.forEach( e => {               // gia kathe Type  enchantment eg
+      let el = "ac";
+        BuffModification.forEach ( ele => {    // gia kathe paikth
+          let i = 0;
+          let k = 0;
+          ele.values.forEach( elem => {
+              if ( elem.name === el && elem.type === e ) {
+                if ( e !== "circumstance" && e !=="untyped" && e !== "dodge" && elem.value > i) {
+                  i = elem.value;
+              } else if ( e === "circumstance" || e === "untyped" || e=== "dodge") {
+                k = k + elem.value;
+                elementIndex = elements.findIndex(eleme => {
+                  return eleme.id === ele.playerId
+                });
+              } 
+          }
+        })
+        elementIndex = elements.findIndex(eleme => {
+          return eleme.id === ele.playerId
+        });
+        elements[elementIndex].touchAcL = elements[elementIndex][el] + i;
+        elements[elementIndex].touchAcL = elements[elementIndex][el] + k;
+      })
+  })
+  }
+
+
+  upadateAc = (elements, BuffModification) => {
+    let elementIndex = 0;
+    bonusesTypes.forEach( e => {               // gia kathe Type  enchantment eg
+      let el = "ac";
+        BuffModification.forEach ( ele => {    // gia kathe paikth
+          let i = 0;
+          let k = 0;
+          ele.values.forEach( elem => {
+              if ( elem.name === el && elem.type === e ) {
+                if ( e !== "circumstance" && e !=="untyped" && e !== "dodge" && elem.value > i) {
+                  i = elem.value;
+              } else if ( e === "circumstance" || e === "untyped" || e=== "dodge" ) {
+                k = k + elem.value;
+                elementIndex = elements.findIndex(eleme => {
+                  return eleme.id === ele.playerId
+                });
+              } 
+          }
+        })
+        elementIndex = elements.findIndex(eleme => {
+          return eleme.id === ele.playerId
+        });
+        elements[elementIndex][el] = elements[elementIndex][el] + i;
+        elements[elementIndex][el] = elements[elementIndex][el] + k;
+      })
+  })
+  }
 
   pushBuffs = (elements, BuffModification) => {
     let testArray = null; // isws mporei na bgei to test array, as to afisoume mipws ginei kamia allagi pio meta
@@ -123,13 +244,13 @@ class App extends Component {
         BuffModification[BuffModification
             .findIndex( element => {return element.playerId === player.id})].values
                 .push(
-                  {name: "attack", type: "negative Level", value: player.NegativeLevels * (-1)},
-                  {name: "skill checks", type: "negative Level", value: player.NegativeLevels * (-1)},
-                  {name: "ability checks", type: "negative Level", value: player.NegativeLevels * (-1)},
-                  {name: "fort", type: "negative Level", value: player.NegativeLevels * (-1)},
-                  {name: "ref", type: "negative Level", value: player.NegativeLevels * (-1)},
-                  {name: "caster Lvl", type: "negative Level", value: player.NegativeLevels * (-1)},
-                  {name: "will", type: "negative Level", value: player.NegativeLevels * (-1)}
+                  {name: "attack", type: "untyped", value: player.NegativeLevels * (-1)},
+                  {name: "skill checks", type: "untyped", value: player.NegativeLevels * (-1)},
+                  {name: "ability checks", type: "untyped", value: player.NegativeLevels * (-1)},
+                  {name: "fort", type: "untyped", value: player.NegativeLevels * (-1)},
+                  {name: "ref", type: "untyped", value: player.NegativeLevels * (-1)},
+                  {name: "caster Lvl", type: "untyped", value: player.NegativeLevels * (-1)},
+                  {name: "will", type: "untyped", value: player.NegativeLevels * (-1)}
                 )
             }});
   }
@@ -171,9 +292,9 @@ class App extends Component {
         BuffModification[BuffModification
             .findIndex( element => {return element.playerId === player.id})].values
                 .push(
-                  {name: "attack", type: "size", value: sizeModifier.attackAndAc},
-                  {name: "Ac", type: "size", value: sizeModifier.attackAndAc},
-                  {name: "grapple", type: "size", value: sizeModifier.specialModifier}
+                  {name: "attack", type: "untyped", value: sizeModifier.attackAndAc},
+                  {name: "ac", type: "untyped", value: sizeModifier.attackAndAc},
+                  {name: "grapple", type: "untyped", value: sizeModifier.specialModifier}
                 )
             }});
   }
@@ -187,9 +308,10 @@ class App extends Component {
       e.intelligence = e.baseIntelligence;
       e.wisdom = e.baseWisdom;
       e.charisma = e.baseCharisma;
-      e.fort = e.baseFort;
-      e.ref = e.baseRef;
-      e.will = e.baseWill;
+      e.fort = 0;
+      e.ref = 0;
+      e.will = 0;
+      e.ac=10;
     })
     this.setState( {
       elements: elements
@@ -301,7 +423,8 @@ class App extends Component {
   }
 
   updateBuffCasterLevel = (event) => {
-    buffCasterLevel = Number(event.target.value);
+    this.setState({
+    buffCasterLevel: Number(event.target.value)});
   }
 
   addElementBuff = (event, id) => {
@@ -313,9 +436,11 @@ class App extends Component {
     });
     const player = {...this.state.elements[playerIndex]};
     console.log(buffIndex);
+    let temp = this.state.buffCasterLevel;
     if (buffIndex !== -1) {  // this is a fix for an issue if buff was not clicked right at the text
-    player.buffs.push(  Object({name: core[buffIndex].name,
-      casterLvl: buffCasterLevel,
+    player.buffs.push(  Object({
+      name: core[buffIndex].name,
+      casterLvl: temp,
       type: core[buffIndex].type,
       class: core[buffIndex].class,
       duration: core[buffIndex].Duration,
@@ -363,9 +488,9 @@ class App extends Component {
     element.active = true;      // this has to be fail practice
     const elements = [...this.state.elements];
     elements[elementIndex] = element;
-    activePlayer = element;
     this.setState({
-      elements: elements
+      elements: elements,
+      activePlayer: element,
     })
   }
 
@@ -384,16 +509,16 @@ class App extends Component {
   }
 
   checkIfActivePlayer = (element) => {
-      if (element.id === activePlayer.id) {
-        activePlayer = element;
+      if (element.id === this.state.activePlayer.id) {
+        this.setState( {activePlayer: element})
       }
   }
 
   sortActivePlayerWithLevels = () => {
-    activePlayer.buffs.sort((l, r) => r.casterLvl - l.casterLvl);
-    this.forceUpdate();
+    let element = this.state.activePlayer;
+    element.buffs.sort((l, r) => r.casterLvl - l.casterLvl);
+    this.setState({activePlayer: element});
   }
-  //checkifActive player changes so that Stats and buffs to refresh
 
   showExtrasHandler = () => {
     console.log("inside showExtrasHandler");
@@ -437,9 +562,9 @@ class App extends Component {
           <Buffs
             sortElementsWithLevel={() => this.sortActivePlayerWithLevels()}
             name="caster Level"
-            activePlayer= {activePlayer}
-            clickBuff={(event) => this.removeElementBuff(event, activePlayer.id)}
-            clickAddBuff={(event) => this.addElementBuff(event, activePlayer.id)}
+            activePlayer= {this.state.activePlayer}
+            clickBuff={(event) => this.removeElementBuff(event, this.state.activePlayer.id)}
+            clickAddBuff={(event) => this.addElementBuff(event, this.state.activePlayer.id)}
             updateBuffCasterLevel={(event) => this.updateBuffCasterLevel(event)}
           />
       </Layout>

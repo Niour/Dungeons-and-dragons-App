@@ -26,9 +26,9 @@ export const initialState = [{
     fort: 0,
     ref: 0,
     will: 0,
-    baseFort: 0,
-    baseRef: 0,
-    baseWill: 0,
+    baseFort: 3,
+    baseRef: 2,
+    baseWill: 1,
     attackRoll: 0,
     Bab: 0,
     baseAttackBab: 0,
@@ -230,8 +230,28 @@ export const initialState = [{
                               "armor bonus","enhancement armor bonus", "natural armor bonus", "enhancement natural armor bonus",
                               "shield bonus", "enhancement shield bonus",
                               "competence", "deflection", "insight", "luck", "morale", "profane", "reistance", "sacred",
-                              "size", "epic", "divine", "ability drain"];
+                              "size", "epic", "divine", "ability drain", "ability modifier" ];
   export const bonusesNames = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"];
   export const extrabonuses = ["attack", "damage", "grapple", "ac", "touch ac", "flatfooded ac"];
   export const buffTypes = ["spell", "wizard", "druid", "bard", "condition", "armor", "Class ab.", "mode", "size", "negative Level"];
-  export const sizes = ["Fine", "Diminutive", "Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan", "Colossal"]
+  export const sizes = ["Fine", "Diminutive", "Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan", "Colossal"];
+  export const savesNames = ["fort", "ref", "will"];
+  export const bonusesTypesForTouchAc = ["enchancement", "racial","untyped", "circumstance", "alchemicalBonus", "dodge",
+                              "competence", "deflection", "insight", "luck", "morale", "profane", "reistance", "sacred",
+                              "size", "epic", "divine", "ability drain", "ability modifier" ];
+
+  export const Modes = [
+    {
+      name: "Monks Wisdom to Ac",
+      id: randomId(),
+      Duration: "Perma",
+      type: "Class ab.",
+      level: 99,
+      specialCondition: "wisdom",
+      values: [{
+          name: "ac",
+          type: "untyped",
+          value: (special) => Math.floor((special - 10 / 2 ))
+      }]    
+  },
+  ];
