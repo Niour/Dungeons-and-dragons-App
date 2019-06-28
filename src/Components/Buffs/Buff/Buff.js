@@ -2,20 +2,25 @@ import React from 'react';
 
 import classes from "./Buff.module.css";
 import {randomId} from '../../../utils';
-import core from '../../../core';
-import Aux from '../../../hoc/Auxialiary';
+
+const widthButton = {
+    width: "100%",
+    color: "white",
+    backgroundColor: "#1fe093"
+};
 
 const buff = (props) => {
     return (
-        <Aux>
-            <tr className={classes.Row}
+            <tr 
+                className={classes.Row}
                 key={randomId()}
                 onClick={props.clicked}>
-                <th className={classes.Row}>{props.value}</th>
-                <th >{props.type}</th>
-                <th >{props.casterLvl}</th>
+                <td className={classes.Row} ><button style={widthButton}>{props.element.name}</button></td>
+                <td className={classes.Row}>{props.element.type === "spell" ? props.element.class : props.element.type} </td>
+                <td className={classes.Row}>{props.element.casterLvl}</td>
+                <td className={classes.Row}>{props.element.duration}</td>
+                <td className={classes.Row}>{props.element.spellLvl}</td>
             </tr>
-        </Aux>
     )
 }
 

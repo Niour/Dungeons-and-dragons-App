@@ -1,0 +1,25 @@
+[ Stats, 
+  Saves, 
+  Bab, Attack, 
+  Ac, touch, flatfootedAc ] 
+
+[ Buffs: Spells/conditions/Equipment        	Filter Spells/Conditions/Equipment/special Ability
+  Negative Levels,                          	Implement
+  Size, 				    	Implement
+  Modes: [ invisibility, fightDefensivly,   	Implement
+	   totalDefence, flank, highGround,
+	   PowerAttack, ]
+
+PushBuffs()               εδω προσμετράμε τα buffs που βρίσκονται στο core.js
+Push Negative Levels()    εδω προσμετράμε τα negative levels που βρίσκονται στον player
+Push Size()               εδω προσμετραμε το size
+Push Modes()                
+UpdateStats()             εδω υπολογίζουμε τα Stats
+pushSpecialAbilities/Conditions that depend from multiple Stats()
+UpdateSaves()             εδω υπολογίζουμε τα Saves
+UpdateAC()                εδώ υπολογίζουμε το Ac kai to touchAc
+UpdateAttack()
+
+What to do with abilities like Monks Wisdom to AC?
+FinalAbilities that depends from other stats like Wisdom
+const = [Monk wisdom to AC, Intelligence to Ac]

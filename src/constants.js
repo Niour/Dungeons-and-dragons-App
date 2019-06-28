@@ -12,7 +12,10 @@ export const initialState = [{
     intelligence: 10,
     wisdom: 10,
     charisma: 10,
-    buffs: [{name: "Cats Grace", casterLvl: 5, type: "Cleric"}, {name: "Bears Endurance", casterLvl: 10, type: "Cleric"}, {name: "Test Lesser Transformation", casterLvl: 15, type: "Cleric"},{name: "Fatigue", casterLvl: 99, type: "Debuff"}],
+    buffs: [{name: "Cats Grace", casterLvl: 5, type: "spell", duration: "MIN/LVL", spellLvl: 2, class: "cleric"}, 
+            {name: "Bears Endurance", casterLvl: 10, type: "spell", duration: "MIN/LVL", spellLvl: 2, class: "cleric"},
+            {name: "Test Lesser Transformation", casterLvl: 15, type: "spell", duration: "MIN/LVL", spellLvl: 4, class: "cleric"},
+            {name: "Fatigue", casterLvl: 99, type: "Condition", duration: "MIN/LVL", spellLvl: 2, class: "cleric"}],
     baseStrength: 10,
     baseDexterity: 10,
     baseConstitution: 10,
@@ -20,6 +23,23 @@ export const initialState = [{
     baseWisdom: 10,
     baseCharisma: 10,
     upgrades: [],
+    fort: 0,
+    ref: 0,
+    will: 0,
+    baseFort: 3,
+    baseRef: 2,
+    baseWill: 1,
+    attackRoll: 0,
+    Bab: 0,
+    baseAttackBab: 0,
+    size: "Medium",
+    NegativeLevels: 10,
+    damage: 0,
+    grapple: 0,
+    ac: 0,
+    baseAc: 10,
+    touchAcL: 0,
+    flatfoodedAc: 0,
   }, {
     id: randomId(),
     name: "Player 2",
@@ -32,7 +52,8 @@ export const initialState = [{
     intelligence: 12,
     wisdom: 12,
     charisma: 9,
-    buffs: [{name: "mage armor", casterLvl: 20, type: "Cleric"},{name: "Fatigue", casterLvl: 99, type: "Debuff"}],
+    buffs: [{name: "mage armor", casterLvl: 20, type: "spell", duration: "MIN/LVL", spellLvl: 1, class: "cleric"},
+            {name: "Fatigue", casterLvl: 99, type: "Condition", duration: "MIN/LVLl", spellLvl: 99, class: "cleric"}],
     baseStrength: 10,
     baseDexterity: 10,
     baseConstitution: 10,
@@ -40,6 +61,22 @@ export const initialState = [{
     baseWisdom: 10,
     baseCharisma: 10,
     upgrades: [],
+    fort: 0,
+    ref: 0,
+    will: 0,
+    baseFort: 0,
+    baseRef: 0,
+    baseWill: 0,
+    attackRoll: 0,
+    baseAttackBab: 0,
+    size: "Medium",
+    NegativeLevels: 0,
+    damage: 0,
+    grapple: 0,
+    ac: 0,
+    baseAc: 10,
+    touchAcL: 0,
+    flatfoodedAc: 0,
   }, {
     id: randomId(),
     name: "Player 3",
@@ -52,7 +89,7 @@ export const initialState = [{
     intelligence: 10,
     wisdom: 10,
     charisma: 10,
-    buffs: [{name: "mage armor", casterLvl: 20, type: "Cleric"}],
+    buffs: [{name: "mage armor", casterLvl: 20, type: "spell", duration: "MIN/LVL", spellLvl: 1, class: "cleric"}],
     baseStrength: 10,
     baseDexterity: 10,
     baseConstitution: 10,
@@ -60,6 +97,22 @@ export const initialState = [{
     baseWisdom: 10,
     baseCharisma: 10,
     upgrades: [],
+    fort: 0,
+    ref: 0,
+    will: 0,
+    baseFort: 0,
+    baseRef: 0,
+    baseWill: 0,
+    attackRoll: 0,
+    baseAttackBab: 0,
+    size: "Medium",
+    NegativeLevels: 0,
+    damage: 0,
+    grapple: 0,
+    ac: 0,
+    baseAc: 10,
+    touchAcL: 0,
+    flatfoodedAc: 0,
   }, {
     id: randomId(),
     name: "Player 4",
@@ -72,7 +125,8 @@ export const initialState = [{
     intelligence: 10,
     wisdom: 10,
     charisma: 10,
-    buffs: [{name: "Cats Grace", casterLvl: 10, type: "Cleric"}, {name: "False Life", casterLvl: 3, type: "Cleric"}],
+    buffs: [{name: "Cats Grace", casterLvl: 10, type: "spell", duration: "MIN/LVL", spellLvl: 2, class: "cleric"}, 
+            {name: "False Life", casterLvl: 3, type: "spell", duration: "MIN/LVL", spellLvl: 2, class: "cleric"}],
     baseStrength: 10,
     baseDexterity: 10,
     baseConstitution: 10,
@@ -80,6 +134,22 @@ export const initialState = [{
     baseWisdom: 10,
     baseCharisma: 10,
     upgrades: [],
+    fort: 0,
+    ref: 0,
+    will: 0,
+    baseFort: 0,
+    baseRef: 0,
+    baseWill: 0,
+    attackRoll: 0,
+    baseAttackBab: 0,
+    size: "Medium",
+    NegativeLevels: 1,
+    damage: 0,
+    grapple: 0,
+    ac: 0,
+    baseAc: 10,
+    touchAcL: 0,
+    flatfoodedAc: 0,
   }, {
     id: randomId(),
     name: "Player 5",
@@ -92,7 +162,9 @@ export const initialState = [{
     intelligence: 16,
     wisdom: 10,
     charisma: 10,
-    buffs: [{name: "Cats Grace", casterLvl: 5, type: "Cleric"}, {name: "Bears Endurance", casterLvl: 10, type: "Cleric"}, {name: "Test Lesser Transformation", casterLvl: 15, type: "Cleric"}],
+    buffs: [{name: "Cats Grace", casterLvl: 5, type: "spell", duration: "MIN/LVL", spellLvl: 2, class: "cleric"}, 
+            {name: "Bears Endurance", casterLvl: 10, type: "spell", duration: "MIN/LVL", spellLvl: 2, class: "cleric"}, 
+            {name: "Test Lesser Transformation", casterLvl: 15, type: "spell", duration: "MIN/LVL", spellLvl: 4, class: "cleric"}],
     baseStrength: 10,
     baseDexterity: 10,
     baseConstitution: 10,
@@ -100,7 +172,86 @@ export const initialState = [{
     baseWisdom: 10,
     baseCharisma: 10,
     upgrades: [],
+    fort: 0,
+    ref: 0,
+    will: 0,
+    baseFort: 0,
+    baseRef: 0,
+    baseWill: 0,
+    attackRoll: 0,
+    baseAttackBab: 0,
+    size: "Medium",
+    NegativeLevels: 0,
+    damage: 0,
+    grapple: 0,
+    ac: 0,
+    baseAc: 10,
+    touchAcL: 0,
+    flatfoodedAc: 0,
   }];
 
-  export const bonusesTypes = ["enchancement", "racial","untyped"];
+  export const upgrades = [
+    {
+    name: "Flank",
+    id: randomId(),
+    values: [{
+        name: "attack",
+        type: "untyped",
+        value: () =>  2
+    }]
+  }, {
+    name: "Fight Defensively",
+    id: randomId(),
+    values: [{
+        name: "attack",
+        type: "untyped",
+        value: () =>  -2
+    },{
+      name: "ac",
+      type: "untyped",
+      value: () =>  2
+    }]
+  }, {
+    name: "Fight Defensively (3)",
+    id: randomId(),
+    values: [{
+        name: "attack",
+        type: "untyped",
+        value: () =>  -2
+    },{
+      name: "ac",
+      type: "untyped",
+      value: () =>  3
+    }]
+  },
+  ]
+
+  export const bonusesTypes = ["enchancement", "racial","untyped", "circumstance", "alchemicalBonus", "dodge",
+                              "armor bonus","enhancement armor bonus", "natural armor bonus", "enhancement natural armor bonus",
+                              "shield bonus", "enhancement shield bonus",
+                              "competence", "deflection", "insight", "luck", "morale", "profane", "reistance", "sacred",
+                              "size", "epic", "divine", "ability drain", "ability modifier" ];
   export const bonusesNames = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"];
+  export const extrabonuses = ["attack", "damage", "grapple", "ac", "touch ac", "flatfooded ac"];
+  export const buffTypes = ["spell", "wizard", "druid", "bard", "condition", "armor", "Class ab.", "mode", "size", "negative Level"];
+  export const sizes = ["Fine", "Diminutive", "Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan", "Colossal"];
+  export const savesNames = ["fort", "ref", "will"];
+  export const bonusesTypesForTouchAc = ["enchancement", "racial","untyped", "circumstance", "alchemicalBonus", "dodge",
+                              "competence", "deflection", "insight", "luck", "morale", "profane", "reistance", "sacred",
+                              "size", "epic", "divine", "ability drain", "ability modifier" ];
+
+  export const Modes = [
+    {
+      name: "Monks Wisdom to Ac",
+      id: randomId(),
+      Duration: "Perma",
+      type: "Class ab.",
+      level: 99,
+      specialCondition: "wisdom",
+      values: [{
+          name: "ac",
+          type: "untyped",
+          value: (special) => Math.floor((special - 10 / 2 ))
+      }]    
+  },
+  ];
