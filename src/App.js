@@ -326,9 +326,9 @@ class App extends Component {
     element.name = event.target.value;
     const elements = [...this.state.elements];
     elements[elementIndex] = element;
-    this.checkIfActivePlayer(element);
     this.setState( {
-      elements: elements
+      elements: elements,
+      activePlayer: element
     })
   };
 
@@ -341,8 +341,7 @@ class App extends Component {
     element.initiative = Number(event.target.value);
     const elements = [...this.state.elements];
     elements[elementIndex] = element;
-    this.checkIfActivePlayer(element); // useless now maybe if initiative will render at Stats component
-    this.setState({ elements: elements })
+    this.setState({ elements: elements, activePlayer: element })
     this.timeout_ = setTimeout( () => this.sortElements(), 500);
   }
 
@@ -354,9 +353,9 @@ class App extends Component {
     element.hitpoints = Number(event.target.value);
     const elements = [...this.state.elements];
     elements[elementIndex] = element;
-    this.checkIfActivePlayer(element);
     this.setState( {
-      elements: elements
+      elements: elements,
+      activePlayer: element
     })
   };
 
@@ -368,9 +367,9 @@ class App extends Component {
     element.NegativeLevels = Number(event.target.value);
     const elements = [...this.state.elements];
     elements[elementIndex] = element;
-    this.checkIfActivePlayer(element);
     this.setState( {
-      elements: elements
+      elements: elements,
+      activePlayer: element
     });
   };
 
@@ -416,9 +415,9 @@ class App extends Component {
     element.buffs = element.buffs.filter(e => e.name!==event.target.textContent);   
     const elements = [...this.state.elements];
     elements[elementIndex] = element;
-    this.checkIfActivePlayer(element);
     this.setState( {
-      elements: elements
+      elements: elements,
+      activePlayer: element
     });
   }
 
@@ -448,9 +447,9 @@ class App extends Component {
       ); //{name: "Cats Grace", casterLvl: 5, type: "Cleric", duration: "MIN/LVL"}, 
     const elements = [...this.state.elements];
     elements[playerIndex] = player;
-    this.checkIfActivePlayer(player);
     this.setState( {
-      elements: elements
+      elements: elements,
+      activePlayer: player
     });}
   }
 
@@ -464,9 +463,9 @@ class App extends Component {
       element.size = event.target.textContent;
       const elements = [...this.state.elements];
       elements[elementIndex] = element;
-      this.checkIfActivePlayer(element);
       this.setState( {
-        elements: elements
+        elements: elements,
+        activePlayer: element
       });
   }
   };
@@ -506,12 +505,6 @@ class App extends Component {
     this.setState( {
       elements: elements
     })
-  }
-
-  checkIfActivePlayer = (element) => {
-      if (element.id === this.state.activePlayer.id) {
-        this.setState( {activePlayer: element})
-      }
   }
 
   sortActivePlayerWithLevels = () => {
