@@ -53,8 +53,6 @@ class App extends Component {
     buffCasterLevel: 0,
   };
 
-  
-
   updateStats = () => {
     const elements = [...this.state.elements];
     this.resetStats();
@@ -462,7 +460,7 @@ class App extends Component {
     });
     const element = {...this.state.elements[elementIndex]};
     console.log(event.target.textContent);
-    if (event.target.textContent.length < 10) {
+    if (event.target.textContent.length < 11) {
       element.size = event.target.textContent;
       const elements = [...this.state.elements];
       elements[elementIndex] = element;
@@ -522,6 +520,13 @@ class App extends Component {
     this.setState({activePlayer: element});
   }
 
+  showExtrasHandler = () => {
+    console.log("inside showExtrasHandler");
+    this.setState( {
+      showExtras: !this.state.showExtras
+    })
+  }
+
   render() {
     return (
           <Layout >
@@ -548,9 +553,11 @@ class App extends Component {
             )} 
           </div>
           <Stats 
-              activePlayer= {this.state.activePlayer}
-              onNegativeLevelsChange={(event) => this.updateNegativeLevels(event, this.state.activePlayer.id)}
-              clickAddSize={(event) => this.updateSize(event, this.state.activePlayer.id)}
+              activePlayer= {activePlayer}
+              onNegativeLevelsChange={(event) => this.updateNegativeLevels(event, activePlayer.id)}
+              clickAddSize={(event) => this.updateSize(event, activePlayer.id)}
+              clickShowExtras= {(event) => this.showExtrasHandler(event)}
+              showExtras= {this.state.showExtras}
           />
           <Buffs
             sortElementsWithLevel={() => this.sortActivePlayerWithLevels()}
