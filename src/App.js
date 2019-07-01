@@ -8,6 +8,7 @@ import Stats from './Components/Stats/Stats';
 import Layout from './Containers/Layout/Layout';
 import Buffs from './Components/Buffs/Buffs';
 import core from './core';
+import {equipments} from './core';
 
 class App extends Component {
   state = {
@@ -25,6 +26,7 @@ class App extends Component {
       wisdom: 10,
       charisma: 10,
       buffs: [],
+      equipment: [],
       baseStrength: 10,
       baseDexterity: 10,
       baseConstitution: 10,
@@ -49,8 +51,12 @@ class App extends Component {
       baseAc: 10,
       touchAcL: 0,
       flatfoodedAc: 0,
+      maxDex: 0,
     },
     buffCasterLevel: 0,
+    itemLevel: 0,
+    showBuffs: true,
+    showEquipment: true,
   };
 
   updateStats = () => {
@@ -61,12 +67,14 @@ class App extends Component {
     this.pushBuffs(elements, BuffModification);
     this.pushNegativeLevels(elements, BuffModification);
     this.pushsize(elements, BuffModification);
+    console.log(elements);
     console.log("BuffModification: ", BuffModification);
     this.updateStatss(elements, BuffModification);
     this.statsToSaves(elements, BuffModification);
     this.upadateSaves(elements, BuffModification);
     this.statsToAc(elements, BuffModification);
     this.upadateTouchAc(elements, BuffModification);
+    this.pushEquipment(elements, BuffModification);
     this.upadateAc(elements, BuffModification);
     this.setState( {
       elements: elements
@@ -76,7 +84,7 @@ class App extends Component {
 
   updateStatss = (elements, BuffModification) => {
     let elementIndex = 0;
-    bonusesTypes.forEach( e => {               // gia kathe Type  enchantment eg
+    bonusesTypes.forEach( e => {               // gia kathe Type  eg
       bonusesNames.forEach ( el => {           // gia kathe stat
         BuffModification.forEach ( ele => {    // gia kathe paikth
           let i = 0;
@@ -85,21 +93,18 @@ class App extends Component {
               if ( elem.name === el && elem.type === e ) {
                 if ( e !== "circumstance" && e !=="untyped" && e !== "dodge" && elem.value > i) {
                   i = elem.value;
-
               } else if ( e === "circumstance" || e === "untyped" || e=== "dodge") {
                 k = k + elem.value;
-                elementIndex = elements.findIndex(eleme => {
-                  return eleme.id === ele.playerId
-                });
               } 
+              elementIndex = elements.findIndex(eleme => {
+                return eleme.id === ele.playerId
+              });
           }
-        });
-        elementIndex = elements.findIndex(eleme => {
-          return eleme.id === ele.playerId
         });
         elements[elementIndex][el] = elements[elementIndex][el] + i;
         elements[elementIndex][el] = elements[elementIndex][el] + k;
-      })
+      }
+      )
     })
   })
   }
@@ -156,7 +161,7 @@ class App extends Component {
       elementIndex = BuffModification.findIndex(element => {
         return element.playerId === player.id
       });
-      BuffModification[elementIndex].values.push({name: "ac", type: "ability modifier", value: Math.floor((player.dexterity -10) / 2)});
+      BuffModification[elementIndex].values.push({name: "ac", type: "ability modifier", value: Math.min(Math.floor((player.dexterity -10) / 2), player.maxDex)});
     });
   }
 
@@ -253,6 +258,25 @@ class App extends Component {
                   {name: "will", type: "untyped", value: player.NegativeLevels * (-1)}
                 )
             }});
+  }
+
+  pushEquipment = (elements, BuffModification) => {
+    elements
+    .forEach(player => { // gia ton kathe paikti
+      player.equipment                   // gia kathe item tou player
+        .map(bf => { return equipments          // gia kathe buff tou core
+          .find( Items => { return Items.values    // gia kathe value tou coreBuffs.values
+            .forEach ((oneValue) => {
+              if (Items.name === bf.name) {
+                BuffModification[BuffModification
+                  .findIndex( element => {return element.playerId === player.id})].values
+                      .push(
+                        {name: oneValue.name, type: oneValue.type, value: oneValue.value(bf.casterLvl)})
+              }
+            });
+          });
+        });
+});
   }
 
   pushsize = (elements, BuffModification) => {
@@ -373,6 +397,19 @@ class App extends Component {
     });
   };
 
+  onMaxDexChange = (event, id) => {
+    const elementIndex = this.state.elements.findIndex(el => {
+      return el.id === id
+    });
+    const element = {...this.state.elements[elementIndex]};
+    element.maxDex = Number(event.target.value);
+    const elements = [...this.state.elements];
+    elements[elementIndex] = element;
+    this.setState( {
+      elements: elements,
+      activePlayer: element
+    });
+  };
 
   sortElements() {
     const {elements} = this.state;
@@ -426,6 +463,11 @@ class App extends Component {
     buffCasterLevel: Number(event.target.value)});
   }
 
+  updateItemLevel = (event) => {
+    this.setState({
+    itemLevel: Number(event.target.value)});
+  }
+
   addElementBuff = (event, id) => {
     const playerIndex = this.state.elements.findIndex(pl => {
       return pl.id === id
@@ -451,6 +493,46 @@ class App extends Component {
       elements: elements,
       activePlayer: player
     });}
+  }
+
+  addEquipment = (event, id) => {
+    const playerIndex = this.state.elements.findIndex(pl => {
+      return pl.id === id
+    });
+    const buffIndex = equipments.findIndex(el => {
+      return el.name === event.target.textContent
+    });
+    const player = {...this.state.elements[playerIndex]};
+    console.log(buffIndex);
+    let temp = this.state.itemLevel;
+    if (buffIndex !== -1) {  // this is a fix for an issue if buff was not clicked right at the text
+    player.equipment.push(  Object({
+      name: equipments[buffIndex].name,
+      casterLvl: temp,
+      type: equipments[buffIndex].type,
+      slot: equipments[buffIndex].slot,
+    })
+      ); //{name: "Cats Grace", casterLvl: 5, type: "Cleric", duration: "MIN/LVL"}, 
+    const elements = [...this.state.elements];
+    elements[playerIndex] = player;
+    this.setState( {
+      elements: elements,
+      activePlayer: player
+    });}
+  }
+
+  removeEquipment = (event, id) => {
+    const elementIndex = this.state.elements.findIndex(el => {
+      return el.id === id
+    });
+    const element = {...this.state.elements[elementIndex]};
+    element.equipment = element.equipment.filter(e => e.name!==event.target.textContent.substring(0,e.name.length));   
+    const elements = [...this.state.elements];
+    elements[elementIndex] = element;
+    this.setState( {
+      elements: elements,
+      activePlayer: element
+    });
   }
 
   updateSize = (event, id) => {
@@ -550,12 +632,18 @@ class App extends Component {
             activePlayer= {this.state.activePlayer}
             clickBuff={(event) => this.removeElementBuff(event, this.state.activePlayer.id)}
             clickAddBuff={(event) => this.addElementBuff(event, this.state.activePlayer.id)}
+            clickEquipment={(event) => this.removeEquipment(event, this.state.activePlayer.id)}
             updateBuffCasterLevel={(event) => this.updateBuffCasterLevel(event)}
+            updateItemLevel={(event) => this.updateItemLevel(event)}
+            clickAddEquipment={(event) => this.addEquipment(event, this.state.activePlayer.id)}
+            showbuffs={this.state.showBuffs}
+            showEquipment={this.state.showEquipment}
           />
           </div>
           <Stats 
               activePlayer= {this.state.activePlayer}
               onNegativeLevelsChange={(event) => this.updateNegativeLevels(event, this.state.activePlayer.id)}
+              onMaxDexChange={(event) => this.onMaxDexChange(event, this.state.activePlayer.id)}
               clickAddSize={(event) => this.updateSize(event, this.state.activePlayer.id)}
               clickShowExtras= {(event) => this.showExtrasHandler(event)}
               showExtras= {this.state.showExtras}
