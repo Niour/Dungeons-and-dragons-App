@@ -449,6 +449,7 @@ class App extends Component {
       return el.id === id
     });
     const element = {...this.state.elements[elementIndex]};
+    console.log(event.target.getAttribute("keyname"));
     element.buffs = element.buffs.filter(e => e.name!==event.target.textContent);   
     const elements = [...this.state.elements];
     elements[elementIndex] = element;

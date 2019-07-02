@@ -28,3 +28,8 @@ What to do with abilities like Monks Wisdom to AC?
 FinalAbilities that depends from other stats like Wisdom
 const = [Monk wisdom to AC, Intelligence to Ac, charisma to saves]
 Charisma to Saves
+
+Suggestion: Split Buff modification to multiple arrays of:
+Stats modification
+Saves modification
+After Stats modification
