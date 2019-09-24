@@ -59,9 +59,9 @@ class App extends Component {
     showEquipment: true,
   };
 
-  updateStats = () => {
-    const elements = [...this.state.elements];
-    this.resetStats();
+  updateStats = (state) => {
+    const elements = [...state];
+    this.resetStats(state);
     let BuffModification = [];
     // edw ftiaxnw ena Array boithitiko pou tha exei mazemena ta stats pou kerdizei o kathe paiktis
     this.pushBuffs(elements, BuffModification);
@@ -323,8 +323,8 @@ class App extends Component {
             }});
   }
 
-  resetStats = () => {
-    const elements = [...this.state.elements];
+  resetStats = (state) => {
+    const elements = [...state];
     elements.forEach((e) => {
       e.strength = e.baseStrength;
       e.dexterity = e.baseDexterity;
@@ -391,8 +391,8 @@ class App extends Component {
     element.NegativeLevels = Number(event.target.value);
     const elements = [...this.state.elements];
     elements[elementIndex] = element;
+    this.updateStats(elements);
     this.setState( {
-      elements: elements,
       activePlayer: element
     });
   };
@@ -405,8 +405,8 @@ class App extends Component {
     element.maxDex = Number(event.target.value);
     const elements = [...this.state.elements];
     elements[elementIndex] = element;
+    this.updateStats(elements);
     this.setState( {
-      elements: elements,
       activePlayer: element
     });
   };
@@ -421,18 +421,48 @@ class App extends Component {
   addCard = () => {
     const {elements} = this.state;
     elements[elements.length] = {
-        id: randomId(),
-        name: `Player ${elements.length +1}`,
-        initiative: 10,
-        hitpoints: 100,
-        strength: 10,
-        dexterity: 10,
-        constitution: 10,
-        intelligence: 10,
-        wisdom: 10,
-        charisma: 10,
-        buffs: [],
-    };
+      id: randomId(),
+      name: "Player 1",
+      initiative: 20,
+      hitpoints: 100,
+      active: true,
+      strength: 10,
+      dexterity: 10,
+      constitution: 10,
+      intelligence: 10,
+      wisdom: 10,
+      charisma: 10,
+      buffs: [{name: "Cats Grace", casterLvl: 5, type: "spell", duration: "MIN/LVL", spellLvl: 2, class: "cleric",}, 
+              {name: "Bears Endurance", casterLvl: 10, type: "spell", duration: "MIN/LVL", spellLvl: 2, class: "cleric",},
+              {name: "Test Lesser Transformation", casterLvl: 15, type: "spell", duration: "MIN/LVL", spellLvl: 4, class: "cleric", },
+              {name: "Fatigue", casterLvl: 99, type: "Condition", duration: "MIN/LVL", spellLvl: 2, class: "cleric", }],
+      baseStrength: 10,
+      baseDexterity: 10,
+      baseConstitution: 10,
+      baseIntelligence: 10,
+      baseWisdom: 10,
+      baseCharisma: 10,
+      upgrades: [],
+      equipment: [],
+      fort: 0,
+      ref: 0,
+      will: 0,
+      baseFort: 3,
+      baseRef: 2,
+      baseWill: 1,
+      attackRoll: 0,
+      Bab: 0,
+      baseAttackBab: 0,
+      size: "Medium",
+      NegativeLevels: 10,
+      damage: 0,
+      grapple: 0,
+      ac: 0,
+      baseAc: 10,
+      touchAcL: 0,
+      flatfoodedAc: 0,
+      maxDex: 10,
+  };
     this.setState({
     elements: elements.sort((l, r) => r.initiative - l.initiative)
   }
@@ -453,8 +483,8 @@ class App extends Component {
     element.buffs = element.buffs.filter(e => e.name!==event.target.textContent);   
     const elements = [...this.state.elements];
     elements[elementIndex] = element;
+    this.updateStats(elements);
     this.setState( {
-      elements: elements,
       activePlayer: element
     });
   }
@@ -494,6 +524,8 @@ class App extends Component {
       elements: elements,
       activePlayer: player
     });}
+    this.updateStats(this.state.elements);
+    this.activePlayerProp(id);
   }
 
   addEquipment = (event, id) => {
@@ -570,8 +602,8 @@ class App extends Component {
     element.active = true;      // this has to be fail practice
     const elements = [...this.state.elements];
     elements[elementIndex] = element;
+    this.updateStats(elements);
     this.setState({
-      elements: elements,
       activePlayer: element,
     })
   }
@@ -623,7 +655,7 @@ class App extends Component {
               onInitiativeChange={(event) => this.updateInitiative(event, element.id)}
               onHitpointsChange={(event) => this.updateHitpoints(event, element.id)}
               onRemove={() => this.removeElement(element.id)}
-              clickBuffs={() => this.updateStats()}
+              clickBuffs={() => this.updateStats(this.state.elements)}
               clickStats={() => this.activePlayerProp(element.id)}
             />
             )} 

@@ -23,7 +23,7 @@ const buffs = (props) => {
                         </Dropdown.Toggle>
                         <Dropdown.Menu 
                             as={CustomMenu}
-                            children = {core.map( (element) => {return <div id={element.id}>{element.name}</div> } )}
+                            children = {core.map( (element) => {return <div id={element.id} style={{color: "purple"}}>{element.name}</div> } )}
                             clicked={props.clickAddBuff}
                         />
                     </Dropdown>
@@ -39,7 +39,7 @@ const buffs = (props) => {
                         </Dropdown.Toggle>
                         <Dropdown.Menu 
                             as={CustomMenu}
-                            children = {special.map( (element) => {return <div id={element.id}>{element.name}</div> } )}
+                            children = {special.map( (element) => {return <div id={element.id} style={{color: "purple"}}>{element.name}</div> } )}
                             clicked={props.clickAddSpecial}
                         />
                     </Dropdown>
@@ -49,7 +49,7 @@ const buffs = (props) => {
                         </Dropdown.Toggle>
                         <Dropdown.Menu 
                             as={CustomMenu}
-                            children = {equipments.map( (element) => {return <div id={element.id}>{element.name}</div> } )}
+                            children = {equipments.map( (element) => {return <div id={element.id} style={{color: "purple"}}>{element.name}</div> } )}
                             clicked={props.clickAddEquipment}
                         />
                     </Dropdown>
