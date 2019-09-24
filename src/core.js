@@ -10,6 +10,7 @@ const core = [{
     values: [{
         name: "dexterity",
         type: "enchancement",
+        special: false,
         value: () =>  4 
     }]    
 }, {
@@ -167,4 +168,62 @@ const core = [{
     }]    
 }];
 
+export const special = [{
+    name: "Monks Ac",
+    id: randomId(),
+    Duration: "1 min./level",
+    type: "spell",
+    level: 2,
+    class: "cleric",
+    values: [{
+        name: "dexterity",
+        type: "enchancement",
+        value: () =>  4 
+    }]    
+},   {name: "Intelligence to AC",
+id: randomId(),
+Duration: "1 min./level",
+type: "spell",
+level: 2,
+class: "cleric",
+values: [{
+    name: "dexterity",
+    type: "enchancement",
+    value: () =>  4 
+}]    
+},
+];
+
+export const equipments = [
+    {
+        name: "Full Plate",
+        id: randomId(),
+        type: "equipment",
+        slot: "torso",
+        values: [{
+            name: "ac",
+            type: "armor bonus",
+            value: () =>  8
+        }, {
+            name: "ac",
+            type: "enhancement armor bonus",
+            value: (caster) =>  caster * 1
+        }]
+    }, {
+        name: "Chain Shirt",
+        id: randomId(),
+        Duration: "1 min./level",
+        type: "equipment",
+        slot: "torso",
+        values: [{
+            name: "ac",
+            type: "armor bonus",
+            value: () =>  4
+        }, {
+            name: "ac",
+            type: "enhancement armor bonus",
+            value: (caster) =>  caster * 1
+        }]
+    },
+]
 export default core;

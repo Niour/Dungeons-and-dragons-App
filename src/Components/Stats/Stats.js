@@ -62,6 +62,12 @@ const stats = (props) => {
                     value={props.activePlayer.NegativeLevels}
                     onChange={props.onNegativeLevelsChange}>
                 </Input>
+                <Input 
+                    label="Max Dext Modifier: "
+                    type="number"
+                    value={props.activePlayer.maxDex}
+                    onChange={props.onMaxDexChange}>
+                </Input>
                     <div style={itemStyle}>
                         <div>
                             <button onClick={props.clickShowExtras}> Extras </button>

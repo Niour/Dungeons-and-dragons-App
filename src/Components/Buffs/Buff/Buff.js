@@ -15,7 +15,7 @@ const buff = (props) => {
                 className={classes.Row}
                 key={randomId()}
                 onClick={props.clicked}>
-                <td className={classes.Row} ><button style={widthButton}>{props.element.name}</button></td>
+                <td className={classes.Row} ><button style={widthButton} keyname = {randomId()}>{props.element.name}</button></td>
                 <td className={classes.Row}>{props.element.type === "spell" ? props.element.class : props.element.type} </td>
                 <td className={classes.Row}>{props.element.casterLvl}</td>
                 <td className={classes.Row}>{props.element.duration}</td>
