@@ -31,7 +31,7 @@ const buffs = (props) => {
                 as={CustomMenu}
                 children={core.map((element) => {
                   return (
-                    <div id={element.id} style={{ color: "purple" }}>
+                    <div id={element.id} style={{color: "purple", cursor: "pointer", padding: "1px"}}>
                       {element.name}
                     </div>
                   );
@@ -61,7 +61,11 @@ const buffs = (props) => {
                 return (
                   <Option
                     id={element.id}
-                    style={{ color: "purple" }}
+                    style={{
+                      color: "purple",
+                      cursor: "pointer",
+                      padding: "1px",
+                    }}
                     value={element.name}
                   >
                     {element.name}
@@ -100,7 +104,14 @@ const buffs = (props) => {
               as={CustomMenu}
               children={equipments.map((element) => {
                 return (
-                  <div id={element.id} style={{ color: "purple" }}>
+                  <div
+                    id={element.id}
+                    style={{
+                      color: "purple",
+                      cursor: "pointer",
+                      padding: "25px 50px 75px 100px",
+                    }}
+                  >
                     {element.name}
                   </div>
                 );
