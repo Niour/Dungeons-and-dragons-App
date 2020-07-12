@@ -1,26 +1,16 @@
-import React from 'react';
+import React from "react";
 
-class CustomToggle extends React.Component {
-    constructor(props, context) {
-      super(props, context);
-  
-      this.handleClick = this.handleClick.bind(this);
-    }
-  
-    handleClick(e) {
+const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
+  <button
+    ref={ref}
+    onClick={(e) => {
       e.preventDefault();
-  
-      this.props.onClick(e);
-    }
-  
-    render() {
-      return (
-        <button onClick={this.handleClick}>
-          {this.props.children}
-        </button>
-      );
-    }
-}
-
+      onClick(e);
+    }}
+  >
+    {children}
+    &#x25bc;
+  </button>
+));
 
 export default CustomToggle;
