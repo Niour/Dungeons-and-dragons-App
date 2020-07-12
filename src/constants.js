@@ -1,7 +1,6 @@
-import { randomId } from "./utils.js";
+import {randomId} from './utils.js';
 
-export const initialState = [
-  {
+export const initialState = [{
     id: randomId(),
     name: "Player 1",
     initiative: 20,
@@ -13,40 +12,10 @@ export const initialState = [
     intelligence: 10,
     wisdom: 10,
     charisma: 10,
-    buffs: [
-      {
-        name: "Cats Grace",
-        casterLvl: 5,
-        type: "spell",
-        duration: "MIN/LVL",
-        spellLvl: 2,
-        class: "cleric",
-      },
-      {
-        name: "Bears Endurance",
-        casterLvl: 10,
-        type: "spell",
-        duration: "MIN/LVL",
-        spellLvl: 2,
-        class: "cleric",
-      },
-      {
-        name: "Test Lesser Transformation",
-        casterLvl: 15,
-        type: "spell",
-        duration: "MIN/LVL",
-        spellLvl: 4,
-        class: "cleric",
-      },
-      {
-        name: "Fatigue",
-        casterLvl: 99,
-        type: "Condition",
-        duration: "MIN/LVL",
-        spellLvl: 2,
-        class: "cleric",
-      },
-    ],
+    buffs: [{name: "Cats Grace", casterLvl: 5, type: "spell", duration: "MIN/LVL", spellLvl: 2, class: "cleric",}, 
+            {name: "Bears Endurance", casterLvl: 10, type: "spell", duration: "MIN/LVL", spellLvl: 2, class: "cleric",},
+            {name: "Test Lesser Transformation", casterLvl: 15, type: "spell", duration: "MIN/LVL", spellLvl: 4, class: "cleric", },
+            {name: "Fatigue", casterLvl: 99, type: "Condition", duration: "MIN/LVL", spellLvl: 2, class: "cleric", }],
     baseStrength: 10,
     baseDexterity: 10,
     baseConstitution: 10,
@@ -73,7 +42,7 @@ export const initialState = [
     touchAcL: 0,
     flatfoodedAc: 0,
     maxDex: 10,
-  } /*{
+}, /*{
     id: randomId(),
     name: "Player 2",
     initiative: 19,
@@ -221,158 +190,70 @@ export const initialState = [
     baseAc: 10,
     touchAcL: 0,
     flatfoodedAc: 0,
-  }*/,
-];
+  }*/];
 
-export const upgrades = [
-  {
+  export const upgrades = [
+    {
     name: "Flank",
     id: randomId(),
-    values: [
-      {
+    values: [{
         name: "attack",
         type: "untyped",
-        value: () => 2,
-      },
-    ],
-  },
-  {
+        value: () =>  2
+    }]
+  }, {
     name: "Fight Defensively",
     id: randomId(),
-    values: [
-      {
+    values: [{
         name: "attack",
         type: "untyped",
-        value: () => -2,
-      },
-      {
-        name: "ac",
-        type: "untyped",
-        value: () => 2,
-      },
-    ],
-  },
-  {
+        value: () =>  -2
+    },{
+      name: "ac",
+      type: "untyped",
+      value: () =>  2
+    }]
+  }, {
     name: "Fight Defensively (3)",
     id: randomId(),
-    values: [
-      {
+    values: [{
         name: "attack",
         type: "untyped",
-        value: () => -2,
-      },
-      {
-        name: "ac",
-        type: "untyped",
-        value: () => 3,
-      },
-    ],
+        value: () =>  -2
+    },{
+      name: "ac",
+      type: "untyped",
+      value: () =>  3
+    }]
   },
-];
+  ];
 
-export const bonusesTypes = [
-  "enchancement",
-  "racial",
-  "untyped",
-  "circumstance",
-  "alchemicalBonus",
-  "dodge",
-  "armor bonus",
-  "enhancement armor bonus",
-  "natural armor bonus",
-  "enhancement natural armor bonus",
-  "shield bonus",
-  "enhancement shield bonus",
-  "competence",
-  "deflection",
-  "insight",
-  "luck",
-  "morale",
-  "profane",
-  "reistance",
-  "sacred",
-  "size",
-  "epic",
-  "divine",
-  "ability drain",
-  "ability modifier",
-];
-export const bonusesNames = [
-  "strength",
-  "dexterity",
-  "constitution",
-  "intelligence",
-  "wisdom",
-  "charisma",
-];
-export const extrabonuses = [
-  "attack",
-  "damage",
-  "grapple",
-  "ac",
-  "touch ac",
-  "flatfooded ac",
-];
-export const buffTypes = [
-  "spell",
-  "wizard",
-  "druid",
-  "bard",
-  "condition",
-  "armor",
-  "Class ab.",
-  "mode",
-  "size",
-  "negative Level",
-];
-export const sizes = [
-  "Fine",
-  "Diminutive",
-  "Tiny",
-  "Small",
-  "Medium",
-  "Large",
-  "Huge",
-  "Gargantuan",
-  "Colossal",
-];
-export const savesNames = ["fort", "ref", "will"];
-export const bonusesTypesForTouchAc = [
-  "enchancement",
-  "racial",
-  "untyped",
-  "circumstance",
-  "alchemicalBonus",
-  "dodge",
-  "competence",
-  "deflection",
-  "insight",
-  "luck",
-  "morale",
-  "profane",
-  "reistance",
-  "sacred",
-  "size",
-  "epic",
-  "divine",
-  "ability drain",
-  "ability modifier",
-];
+  export const bonusesTypes = ["enchancement", "racial","untyped", "circumstance", "alchemicalBonus", "dodge",
+                              "armor bonus","enhancement armor bonus", "natural armor bonus", "enhancement natural armor bonus",
+                              "shield bonus", "enhancement shield bonus",
+                              "competence", "deflection", "insight", "luck", "morale", "profane", "reistance", "sacred",
+                              "size", "epic", "divine", "ability drain", "ability modifier" ];
+  export const bonusesNames = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"];
+  export const extrabonuses = ["attack", "damage", "grapple", "ac", "touch ac", "flatfooded ac"];
+  export const buffTypes = ["spell", "wizard", "druid", "bard", "condition", "armor", "Class ab.", "mode", "size", "negative Level"];
+  export const sizes = ["Fine", "Diminutive", "Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan", "Colossal"];
+  export const savesNames = ["fort", "ref", "will"];
+  export const bonusesTypesForTouchAc = ["enchancement", "racial","untyped", "circumstance", "alchemicalBonus", "dodge",
+                              "competence", "deflection", "insight", "luck", "morale", "profane", "reistance", "sacred",
+                              "size", "epic", "divine", "ability drain", "ability modifier" ];
 
-export const Modes = [
-  {
-    name: "Monks Wisdom to Ac",
-    id: randomId(),
-    Duration: "Perma",
-    type: "Class ab.",
-    level: 99,
-    specialCondition: "wisdom",
-    values: [
-      {
-        name: "ac",
-        type: "untyped",
-        value: (special) => Math.floor(special - 10 / 2),
-      },
-    ],
+  export const Modes = [
+    {
+      name: "Monks Wisdom to Ac",
+      id: randomId(),
+      Duration: "Perma",
+      type: "Class ab.",
+      level: 99,
+      specialCondition: "wisdom",
+      values: [{
+          name: "ac",
+          type: "untyped",
+          value: (special) => Math.floor((special - 10 / 2 ))
+      }]    
   },
-];
+  ];

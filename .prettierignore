@@ -1,7 +1,0 @@
-# Ignore artifacts:
-node_modules
-public
-src/App.js
-
-# Ignore all HTML files:
-*.html
