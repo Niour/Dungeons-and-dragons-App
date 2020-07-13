@@ -11,7 +11,6 @@ import CustomToggle from "../../Containers/Boost/CustomToggle";
 import core from "../../core";
 import { special, equipments } from "../../core";
 import { Select } from "antd";
-import aux from "../../hoc/Auxialiary";
 
 const { Option } = Select;
 
@@ -48,6 +47,16 @@ const buffs = (props) => {
               filterOption={(input, option) =>
                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
+              // the bug of the adding more buffs if not blured could be fixed by implenting onSelect function
+              onSelect={function (value, optionElement) {
+                console.log(
+                  "Thsi is value of inside onSelect",
+                  "We need to change this with passing a new prop function eg prop.clickAddbuff2"
+                );
+              }}
+              onBlur={function (e) {
+                e.target.parentElement.nextSibling.textContent = "Select Buff";
+              }}
               children={core.map((element) => {
                 return (
                   <Option
