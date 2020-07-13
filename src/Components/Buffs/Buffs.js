@@ -10,6 +10,10 @@ import Dropdown from "react-bootstrap/Dropdown";
 import CustomToggle from "../../Containers/Boost/CustomToggle";
 import core from "../../core";
 import { special, equipments } from "../../core";
+import { Select } from "antd";
+import aux from "../../hoc/Auxialiary";
+
+const { Option } = Select;
 
 const buffs = (props) => {
   return (
@@ -17,7 +21,7 @@ const buffs = (props) => {
       <div>
         <div className={classes.Dropdown}>
           <div>
-            <Dropdown>
+            {/* <Dropdown>
               <Dropdown.Toggle
                 as={CustomToggle}
                 id="dropdown-custom-components"
@@ -35,7 +39,28 @@ const buffs = (props) => {
                 })}
                 clicked={props.clickAddBuff}
               />
-            </Dropdown>
+            </Dropdown> */}
+            <Select
+              showSearch
+              style={{ width: 200 }}
+              placeholder="Add buff"
+              optionFilterProp="children"
+              filterOption={(input, option) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+              children={core.map((element) => {
+                return (
+                  <Option
+                    id={element.id}
+                    style={{ color: "purple" }}
+                    value={element.name}
+                  >
+                    {element.name}
+                  </Option>
+                );
+              })}
+              onClick={props.clickAddBuff}
+            ></Select>
           </div>
           <Input
             onChange={props.updateBuffCasterLevel}

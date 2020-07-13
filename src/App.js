@@ -15,6 +15,8 @@ import Layout from "./Containers/Layout/Layout";
 import Buffs from "./Components/Buffs/Buffs";
 import core from "./core";
 import { equipments } from "./core";
+import { DatePicker } from "antd";
+import "antd/dist/antd.css";
 
 class App extends Component {
   state = {
@@ -797,6 +799,7 @@ class App extends Component {
   render() {
     return (
       <Layout>
+        <DatePicker></DatePicker>
         <div className={"Buttons-container"}>
           <button onClick={this.addCard}>Add Character</button>
           <button>Import A Character (TbF)</button>
