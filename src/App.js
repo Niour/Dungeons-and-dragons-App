@@ -614,6 +614,8 @@ class App extends Component {
     });
   };
 
+  console.log("Test one");
+
   removeElement = (id) => {
     let { elements } = this.state;
     elements = elements.filter((el) => el.id !== id); // performace*
