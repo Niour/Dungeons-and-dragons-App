@@ -637,6 +637,8 @@ class App extends Component {
     });
   };
 
+  console.log(this.state);
+
   updateBuffCasterLevel = (event) => {
     this.setState({
       buffCasterLevel: Number(event.target.value),
